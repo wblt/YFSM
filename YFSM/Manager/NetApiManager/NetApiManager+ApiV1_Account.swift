@@ -17,38 +17,24 @@ extension BaseRequest {
     ///   - studentNo: 帐号
     ///   - password: 密码
     ///   - completion: StudentModel
-    func userLogin(_ studentNo: String, password: String, completion: @escaping (_ model: StudentModel?) -> Void, errorRequest: RequestError?, failedRequest: RequestFailure?) {
+    func userLogin(_ studentNo: String, password: String, completion: @escaping (_ result: Any?) -> Void, errorRequest: RequestError?, failedRequest: RequestFailure?) {
         
-        let action = "/app/student/login"
+        let action = "http://hi-watch.com.cn/tpiot/app/login"
         
-        var parameters = postParameters()
-        parameters["studentNo"] = studentNo
-        parameters["password"] = password
-        
-        // 需要加密的Dic
-        let signDic = parameters + ["url":action]
-        // 进行Dic排序后字符串拼接
-        let sortStr = Utility.sort(with: signDic)
-        // MD5加密
-        let signMD5 = sortStr.mattress_MD5()
-        
-        guard let sign = signMD5 else { LogManager.shared.log("MD5加密失败"); return }
-        
-        LogManager.shared.log("加密后的 ＝＝＝＝ \(sign)")
-        parameters["sign"] = sign
+        var parameters = [String: Any]()
+        parameters["username"] = studentNo
+        parameters["password"] = password.mattress_MD5()
         
         LogManager.shared.log("提交的参数 ＝＝＝＝ \(parameters)")
         
-        let url = self.apiURL + action
+        let url = action
         POST(url, parameters: parameters, succeedRequest: { (response, responseObject, hasMore) -> Void in
             
             LogManager.shared.log("登录回执数据: \(responseObject)")
             
             if let json = responseObject as? [String: Any] {
                 AccountManager.shared.login(json, firstLogin: true)
-                
-                let model = self.getObject(with: json, object: StudentModel()).0
-                completion(model)
+                completion(json)
             }
         }, errorRequest: { (response, errorObject) -> Void in
             

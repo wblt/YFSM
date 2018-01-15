@@ -35,11 +35,14 @@ import UIKit
             let guideViewController = storyboard.instantiateViewController(withIdentifier: "GuideViewController") as! GuideViewController
             self.window?.rootViewController = guideViewController
         } else {
-            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-            
-            self.window?.rootViewController = BaseNavC(rootViewController: loginVC)
-//            let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
-//            self.window?.rootViewController = BaseNavC(rootViewController: homeVC)
+            if AccountManager.shared.isLogin() {
+                let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+                self.window?.rootViewController = BaseNavC(rootViewController: homeVC)
+            }else {
+                let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                
+                self.window?.rootViewController = BaseNavC(rootViewController: loginVC)
+            }
         }
         _ = BaseRequest.shared
         _ = DeviceManager.shared

@@ -62,9 +62,15 @@ class GuideViewController: UIViewController {
         userDefaults.setValue(currentAppVersion, forKey: "appVersion")
         userDefaults.synchronize()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
-        let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
-        appDelegate.window?.rootViewController = BaseNavC(rootViewController: homeVC)
+        if AccountManager.shared.isLogin() {
+            let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+            let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
+            appDelegate.window?.rootViewController = BaseNavC(rootViewController: homeVC)
+        }else {
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+            let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
+            appDelegate.window?.rootViewController = BaseNavC(rootViewController: loginVC)
+        }
     }
 }
 

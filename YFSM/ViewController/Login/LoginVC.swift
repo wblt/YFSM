@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class LoginVC: BaseVC {
     
     @IBOutlet weak var _numberTextField: UITextField!
@@ -41,6 +41,43 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
+        if _numberTextField.text?.length != 11 {
+            SVProgressHUD.showError(withStatus: "请输入正确的手机号")
+            return
+        }
+        if _passwordTextField.text?.length == 0 {
+            SVProgressHUD.showError(withStatus: "请输入密码")
+            return
+        }
+        let urlString = "http://hi-watch.com.cn/tpiot/app/login"
+        
+        var parameters = [String: Any]()
+//        parameters["username"] = "15274835385"
+//        parameters["password"] = "e10adc3949ba59abbe56e057f20f883e";
+        parameters["username"] = _numberTextField.text
+        parameters["password"] = _passwordTextField.text?.mattress_MD5();
+        BFunction.shared.showLoading()
+        NetworkTools.shareInstance.request(methodType: .POST, urlString: urlString, parameters:parameters as [String : AnyObject]) { (result : AnyObject?, error : Error?) in
+            BFunction.shared.hideLoadingMessage()
+            if error != nil  {
+                print(error!)
+                SVProgressHUD.showError(withStatus: "登录失败")
+                return
+            }
+            if let jsonResult = result as? Dictionary<String, Any> {
+                if jsonResult["result"] as! Int == 0 {
+                    AccountManager.shared.login(result as! [String : Any], firstLogin: false)
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+                    let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
+                    appDelegate.window?.rootViewController = BaseNavC(rootViewController: homeVC)
+                }else {
+                    
+                    SVProgressHUD.showError(withStatus: "登录失败")
+                }
+            }
+
+        }
     }
     
 }

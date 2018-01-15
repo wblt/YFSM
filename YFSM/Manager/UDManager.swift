@@ -126,7 +126,7 @@ class UDManager {
             return accessToken
         }else{
             
-            return "abc"
+            return ""
         }
     }
     

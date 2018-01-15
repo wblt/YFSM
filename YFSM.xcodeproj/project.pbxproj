@@ -123,6 +123,7 @@
 		36232151200AFDA300E60794 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36232150200AFDA300E60794 /* JavaScriptCore.framework */; };
 		36232153200AFDB300E60794 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 36232152200AFDB300E60794 /* libz.tbd */; };
 		503325D3B01B5D95DCC6EE55 /* Pods_YFSM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9AE3DEF952D45E0B5B802BC /* Pods_YFSM.framework */; };
+		8D425BAD200C71CF0067D706 /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D425BAC200C71CF0067D706 /* NetworkTools.swift */; };
 		EE016B14200B53E200235DF7 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE016B13200B53E200235DF7 /* GuideViewController.swift */; };
 		EE016B16200B679B00235DF7 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE016B15200B679B00235DF7 /* RegisterVC.swift */; };
 /* End PBXBuildFile section */
@@ -282,6 +283,7 @@
 		36232152200AFDB300E60794 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		36232154200AFFBB00E60794 /* YFSMM-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YFSMM-Bridging-Header.h"; sourceTree = "<group>"; };
 		45DB0ACA37AF3B3ADADF24B7 /* Pods-YFSM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YFSM.release.xcconfig"; path = "Pods/Target Support Files/Pods-YFSM/Pods-YFSM.release.xcconfig"; sourceTree = "<group>"; };
+		8D425BAC200C71CF0067D706 /* NetworkTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		A9AE3DEF952D45E0B5B802BC /* Pods_YFSM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YFSM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE016B13200B53E200235DF7 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		EE016B15200B679B00235DF7 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 				36232131200AFBBA00E60794 /* BaseRequest.swift */,
 				36232132200AFBBA00E60794 /* NetApiManager+ApiV1_Account.swift */,
 				36232133200AFBBA00E60794 /* NetApiManager+ApiV1_App.swift */,
+				8D425BAC200C71CF0067D706 /* NetworkTools.swift */,
 			);
 			path = NetApiManager;
 			sourceTree = "<group>";
@@ -999,9 +1002,36 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-YFSM/Pods-YFSM-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BFEmptyDataSet/BFEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/LKDBHelper/LKDBHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/iRate/iRate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BFEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LKDBHelper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iRate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1014,13 +1044,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YFSM-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CF0FBC5D48A493DA278E5CCC /* [CP] Copy Pods Resources */ = {
@@ -1087,6 +1120,7 @@
 				EE016B16200B679B00235DF7 /* RegisterVC.swift in Sources */,
 				362320BE200AFB4500E60794 /* BabyBluetooth.m in Sources */,
 				36232121200AFB9C00E60794 /* Int+AddOn.swift in Sources */,
+				8D425BAD200C71CF0067D706 /* NetworkTools.swift in Sources */,
 				362320DA200AFB6900E60794 /* StudentModel.swift in Sources */,
 				362320C0200AFB4500E60794 /* BabyCentralManager.m in Sources */,
 				362320C5200AFB4500E60794 /* BabySpeaker.m in Sources */,

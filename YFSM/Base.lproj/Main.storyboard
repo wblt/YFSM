@@ -574,6 +574,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="获取验证码"/>
+                                <connections>
+                                    <action selector="codeAction:" destination="AdZ-en-mXa" eventType="touchUpInside" id="JUp-Cw-N9q"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

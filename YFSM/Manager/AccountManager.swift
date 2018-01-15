@@ -46,24 +46,14 @@ class AccountManager {
         
         cache.setObject(account as NSCoding?, forKey:  cacheKey)
         
-        if let token = account["token"] as? String, let rcToken = account["imToken"] as? String {
+        if let userid = account["userid"] as? String {
             
-            if !token.isEmpty {
-                LogManager.shared.log("登录成功 ---- token = \(token)")
-                UDManager.shared.saveUserToken(token)
-            }
-            
-            if firstLogin {
-                LogManager.shared.log("登录成功 ---- 连接融云")
-                //UIApplication.sharedDelegate().connetRongCloud(rcToken)//登录融云
+            if !userid.isEmpty {
+                LogManager.shared.log("登录成功 ---- token = \(userid)")
+                UDManager.shared.saveUserToken(userid)
             }
         }
         
-        if firstLogin {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: cNDidLogin), object: nil)
-        }else{
-            NotificationCenter.default.post(name: Notification.Name(rawValue: cNRefreshUserInfo), object: nil)
-        }
     }
     
     /// 去登录
@@ -144,7 +134,7 @@ class AccountManager {
     /// - Returns: true: 已登录
     func isLogin() -> Bool {
         
-        let isLogin = !(getAccount() == nil )
+        let isLogin = !(UDManager.shared.userToken().length == 0 )
         
         return isLogin
     }

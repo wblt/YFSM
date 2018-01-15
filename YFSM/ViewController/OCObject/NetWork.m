@@ -16,7 +16,7 @@
 
     AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
     
-    //    manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     manger.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     
