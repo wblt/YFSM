@@ -33,7 +33,7 @@ var oil2Value = 0;
 var water1Value = 0;
 var water2Value = 0;
 
-class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayerDelegate {
+class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate {
     @IBOutlet weak var connectView: UIView!
     
     @IBOutlet var deviceBtns: [UIButton]!
@@ -906,7 +906,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         })
         //  self.moreMenu?.removeFromSuperview()
         
-        self.moreMenu = JHCustomMenu(dataArr: ["搜索设备", "水油数据", "使用教程"], origin: CGPoint(x: kScreenFrameW - 125 - 20 , y: 64), width: 125, rowHeight: 44)
+        self.moreMenu = JHCustomMenu(dataArr: ["搜索设备", "水油数据", "使用教程", "注销登录", "意见反馈"], origin: CGPoint(x: kScreenFrameW - 125 - 20 , y: 64), width: 125, rowHeight: 44)
         
         
         self.moreMenu?.delegate = self
@@ -915,7 +915,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             self.moreMenu = nil
             
         }
-        self.moreMenu?.arrImgName = ["icon-serch", "chart_icon", "icon-jiaocheng"]
+        self.moreMenu?.arrImgName = ["icon-serch", "chart_icon", "icon-jiaocheng", "chart_icon", "icon-jiaocheng"]
         view.addSubview(self.moreMenu!)
         
         
@@ -943,6 +943,27 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         }
         if indexPath.row == 2 {
             NavigationManager.pushToNativeWebView(form: self, fileName: "h5/operation", title: "更多" )
+        }
+        if indexPath.row == 3 {
+            
+            let alrtView = UIAlertView(title: "温馨提示", message: "是否确定退出？", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
+            alrtView.show()
+        }
+        if indexPath.row == 4 {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let suggestionsVC = storyboard.instantiateViewController(withIdentifier: "SuggestionsVC") as! SuggestionsVC
+            self.navigationController?.pushViewController(suggestionsVC, animated: true)
+        }
+    }
+    
+    public func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int)
+    {
+        if buttonIndex == 1 {
+            UDManager.shared.removeUserToken()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+            let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
+            appDelegate.window?.rootViewController = BaseNavC(rootViewController: loginVC)
         }
     }
     

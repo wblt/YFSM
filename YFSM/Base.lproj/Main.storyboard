@@ -628,6 +628,73 @@
             </objects>
             <point key="canvasLocation" x="-925.5" y="72.5"/>
         </scene>
+        <!--SuggestionsVC-->
+        <scene sceneID="Vks-Sb-YmR">
+            <objects>
+                <viewController storyboardIdentifier="SuggestionsVC" id="O7y-Fd-zGk" customClass="SuggestionsVC" customModule="YFSM" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0no-Ra-g5X"/>
+                        <viewControllerLayoutGuide type="bottom" id="NNB-Np-Nao"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="B3O-o7-IMD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DUH-Gb-xSN">
+                                <rect key="frame" x="10" y="40" width="355" height="288.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9wl-bh-fJw">
+                                <rect key="frame" x="10" y="353.5" width="355" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ivo-gm-rnk"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfG-Pq-XTf">
+                                <rect key="frame" x="10" y="433.5" width="355" height="40"/>
+                                <color key="backgroundColor" red="0.046957239509999998" green="0.81133586170000005" blue="0.91291481259999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="USE-jO-cJ6"/>
+                                </constraints>
+                                <state key="normal" title="提交"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="commitAction:" destination="O7y-Fd-zGk" eventType="touchUpInside" id="IDX-NB-fgX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="TfG-Pq-XTf" secondAttribute="trailing" constant="10" id="9Vj-7o-HYz"/>
+                            <constraint firstAttribute="trailing" secondItem="DUH-Gb-xSN" secondAttribute="trailing" constant="10" id="HFG-QZ-VQX"/>
+                            <constraint firstItem="9wl-bh-fJw" firstAttribute="leading" secondItem="B3O-o7-IMD" secondAttribute="leading" constant="10" id="PbI-ah-fqk"/>
+                            <constraint firstItem="9wl-bh-fJw" firstAttribute="centerY" secondItem="B3O-o7-IMD" secondAttribute="centerY" constant="40" id="RNd-uj-9CQ"/>
+                            <constraint firstItem="TfG-Pq-XTf" firstAttribute="leading" secondItem="B3O-o7-IMD" secondAttribute="leading" constant="10" id="RSE-gh-TNI"/>
+                            <constraint firstAttribute="trailing" secondItem="9wl-bh-fJw" secondAttribute="trailing" constant="10" id="aAs-sB-1Ig"/>
+                            <constraint firstItem="TfG-Pq-XTf" firstAttribute="top" secondItem="9wl-bh-fJw" secondAttribute="bottom" constant="40" id="brn-dK-fRW"/>
+                            <constraint firstItem="9wl-bh-fJw" firstAttribute="top" secondItem="DUH-Gb-xSN" secondAttribute="bottom" constant="25" id="fl8-82-CkX"/>
+                            <constraint firstItem="DUH-Gb-xSN" firstAttribute="leading" secondItem="B3O-o7-IMD" secondAttribute="leading" constant="10" id="jNS-hd-RKf"/>
+                            <constraint firstItem="DUH-Gb-xSN" firstAttribute="top" secondItem="0no-Ra-g5X" secondAttribute="bottom" constant="20" id="yTL-qq-gOO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="phoneText" destination="9wl-bh-fJw" id="bL8-N1-vBS"/>
+                        <outlet property="textView" destination="DUH-Gb-xSN" id="1ZM-yu-ypA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kt6-T0-tyK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-345" y="34"/>
+        </scene>
         <!--Base NavC-->
         <scene sceneID="7c5-uN-VXt">
             <objects>
