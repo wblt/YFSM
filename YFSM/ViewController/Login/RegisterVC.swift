@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import Alamofire
 class RegisterVC: BaseVC {
 
     @IBOutlet weak var _numberTextField: UITextField!
@@ -20,6 +21,7 @@ class RegisterVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "注册";
         // Do any additional setup after loading the view.
     }
 
@@ -48,16 +50,16 @@ class RegisterVC: BaseVC {
         parameters["username"] = _numberTextField.text
         parameters["password"] = _passwordTextField.text?.mattress_MD5();
         BFunction.shared.showLoading()
-        NetworkTools.shareInstance.request(methodType: .POST, urlString: urlString, parameters:parameters as [String : AnyObject]) { (result : AnyObject?, error : Error?) in
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
-            if error != nil  {
-                print(error!)
+            if response.error != nil  {
+                
                 SVProgressHUD.showError(withStatus: "注册失败")
                 return
             }
-            if let jsonResult = result as? Dictionary<String, Any> {
+            if let jsonResult = response.value as? Dictionary<String, Any> {
                 if jsonResult["result"] as! Int == 0 {
-                    AccountManager.shared.login(result as! [String : Any], firstLogin: false)
+                    AccountManager.shared.login(response.value as! [String : Any], firstLogin: false)
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
                     let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
@@ -81,16 +83,17 @@ class RegisterVC: BaseVC {
         var parameters = [String: Any]()
         parameters["username"] = _numberTextField.text
         BFunction.shared.showLoading()
-        NetworkTools.shareInstance.request(methodType: .POST, urlString: urlString, parameters:parameters as [String : AnyObject]) { (result : AnyObject?, error : Error?) in
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
-            if error != nil  {
-                print(error!)
+            if response.error != nil  {
+             
                 SVProgressHUD.showError(withStatus: "获取验证码失败")
                 return
             }
-            if let jsonResult = result as? Dictionary<String, Any> {
+            if let jsonResult = response.value as? Dictionary<String, Any> {
                 if jsonResult["result"] as! Int == 0 {
-                    self.code = jsonResult["vercode"] as! String
+                    self.code = (jsonResult["vercode"] as! NSNumber).stringValue
+                    SVProgressHUD.showSuccess(withStatus: "已发送验证码")
                 }else {
                     
                     SVProgressHUD.showError(withStatus: "获取验证码失败")

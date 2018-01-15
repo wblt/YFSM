@@ -46,13 +46,13 @@ class AccountManager {
         
         cache.setObject(account as NSCoding?, forKey:  cacheKey)
         
-        if let userid = account["userid"] as? String {
-            
-            if !userid.isEmpty {
-                LogManager.shared.log("登录成功 ---- token = \(userid)")
-                UDManager.shared.saveUserToken(userid)
-            }
+     
+        let userid = "\(String(describing: account["userid"]))"
+        if !userid.isEmpty {
+            LogManager.shared.log("登录成功 ---- token = \(userid)")
+            UDManager.shared.saveUserToken(userid)
         }
+        
         
     }
     

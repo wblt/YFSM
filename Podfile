@@ -21,4 +21,5 @@ target 'YFSM' do
   pod 'YYCache'
   pod 'BFEmptyDataSet'
   # pod 'JSPatch'
+  pod 'Alamofire'
 end

@@ -18,7 +18,10 @@ class NetworkTools: AFHTTPSessionManager {
     // 设计单例 let是线程安全的
     static let shareInstance : NetworkTools = {
         let tools = NetworkTools()
+//        tools.responseSerializer = AFHTTPResponseSerializer();
+//        tools.requestSerializer = AFHTTPRequestSerializer();
         tools.responseSerializer.acceptableContentTypes?.insert("text/html")
+        tools.responseSerializer.acceptableContentTypes?.insert("text/plain")
         return tools
     }()
     

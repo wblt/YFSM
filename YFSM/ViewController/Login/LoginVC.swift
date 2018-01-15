@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import Alamofire
 class LoginVC: BaseVC {
     
     @IBOutlet weak var _numberTextField: UITextField!
@@ -41,6 +42,8 @@ class LoginVC: BaseVC {
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
+//        let net = NetWork.init();
+//        net.getlogin();
         if _numberTextField.text?.length != 11 {
             SVProgressHUD.showError(withStatus: "请输入正确的手机号")
             return
@@ -57,16 +60,15 @@ class LoginVC: BaseVC {
         parameters["username"] = _numberTextField.text
         parameters["password"] = _passwordTextField.text?.mattress_MD5();
         BFunction.shared.showLoading()
-        NetworkTools.shareInstance.request(methodType: .POST, urlString: urlString, parameters:parameters as [String : AnyObject]) { (result : AnyObject?, error : Error?) in
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
-            if error != nil  {
-                print(error!)
+            if response.error != nil  {
                 SVProgressHUD.showError(withStatus: "登录失败")
                 return
             }
-            if let jsonResult = result as? Dictionary<String, Any> {
+            if let jsonResult = response.value as? Dictionary<String, Any> {
                 if jsonResult["result"] as! Int == 0 {
-                    AccountManager.shared.login(result as! [String : Any], firstLogin: false)
+                    AccountManager.shared.login(response.value as! [String : Any], firstLogin: false)
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
                     let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
@@ -78,6 +80,27 @@ class LoginVC: BaseVC {
             }
 
         }
+//        NetworkTools.shareInstance.request(methodType: .POST, urlString: urlString, parameters:parameters as [String : AnyObject]) { (result : AnyObject?, error : Error?) in
+//            BFunction.shared.hideLoadingMessage()
+//            if error != nil  {
+//                print(error!)
+//                SVProgressHUD.showError(withStatus: "登录失败")
+//                return
+//            }
+//            if let jsonResult = result as? Dictionary<String, Any> {
+//                if jsonResult["result"] as! Int == 0 {
+//                    AccountManager.shared.login(result as! [String : Any], firstLogin: false)
+//                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                    let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+//                    let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
+//                    appDelegate.window?.rootViewController = BaseNavC(rootViewController: homeVC)
+//                }else {
+//
+//                    SVProgressHUD.showError(withStatus: "登录失败")
+//                }
+//            }
+//
+//        }
     }
     
 }

@@ -37,4 +37,23 @@
     }];
 }
 
+- (void)getlogin{
+    
+    
+    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manger.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    
+    
+    [manger POST:@"http://hi-watch.com.cn/tpiot/app/login" parameters:@{@"username":@"15274835385",@"username":@"e10adc3949ba59abbe56e057f20f883e"} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
+
 @end

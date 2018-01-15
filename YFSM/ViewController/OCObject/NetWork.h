@@ -18,4 +18,6 @@ typedef void(^checkVisionBlock)(NSString * );
 
 - (void)getTheNewVersion;
 
+- (void)getlogin;
+
 @end
