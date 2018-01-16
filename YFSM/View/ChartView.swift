@@ -161,7 +161,7 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
             
             dataSet.setColor(UIColor.white)//折线颜色
             dataSet.setCircleColor(colorArray[i]) //设置拐点颜色
-            //dataSet.drawSteppedEnabled = false//是否开启绘制阶梯样式的折线图
+            //dataSet.drawSteppedEnabled = false //是否开启绘制阶梯样式的折线图
             dataSet.drawCirclesEnabled = true  //是否绘制拐点
             dataSet.circleRadius = 5.0//拐点半径
             

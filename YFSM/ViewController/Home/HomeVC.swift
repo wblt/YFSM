@@ -662,29 +662,20 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         }
             //开始使用面膜机
         else if daojishi == "011:59"{
-            
-        
             bubble.start_bubbleAnimation();
             let date = (Date.currentTime().substringToIndex(10)!.replacingOccurrences(of: "-", with: "") as NSString).integerValue
-            let model = ChartModel()
+            let model = ChartModel.init();
             model.oil1 = self.youfenValue
             model.water1 = self.shuifenValue
             model.date = date
             model.step = 1
-
             oil1Value = self.youfenValue;
             water1Value = self.shuifenValue;
-            
-            
             self.startLabel.text = "运行中"
-             model.saveToDB()
+            let flag = model.saveToDB()
+            print("插入标志：+==="+flag);
         }else if daojishi != "00:00" && fenzhong < 10  {
-            
-        
-
-            
             bubble.start_bubbleAnimation();
-
             daojishiLabel.isHidden = false
             self.startLabel.text = "运行中"
             // 拼接数据
@@ -696,9 +687,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             daojishiLabel.text = "\(xiaoshi)\(fenzhong):"+bb
             
         }else if fenzhong >= 10{
-            
-        
-            
             bubble.start_bubbleAnimation();
             self.startLabel.text = "运行中"
             daojishiLabel.isHidden = false
@@ -959,7 +947,8 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     public func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int)
     {
         if buttonIndex == 1 {
-            UDManager.shared.removeUserToken()
+            let bools = UDManager.shared.removeUserToken()
+            print(bools)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
