@@ -68,6 +68,10 @@ class LoginVC: BaseVC {
             }
             if let jsonResult = response.value as? Dictionary<String, Any> {
                 if jsonResult["result"] as! Int == 0 {
+                    let userDefaults = UserDefaults.standard
+                    userDefaults.setValue(self._numberTextField.text, forKey: "UserPhone")
+                    userDefaults.setValue(self._passwordTextField.text, forKey: "UserPassword")
+                    userDefaults.synchronize()
                     AccountManager.shared.login(response.value as! [String : Any], firstLogin: false)
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC

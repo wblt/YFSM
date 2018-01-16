@@ -11,11 +11,11 @@ import Alamofire
 import SVProgressHUD
 class SuggestionsVC: BaseVC {
     @IBOutlet weak var textView: UITextView!
-    
     @IBOutlet weak var phoneText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "意见反馈"
         textView.layer.borderColor = UIColor.lightGray.cgColor;
         textView.layer.borderWidth = 0.5;
         textView.layer.cornerRadius = 8;
@@ -25,6 +25,7 @@ class SuggestionsVC: BaseVC {
         phoneText.layer.borderWidth = 0.5;
         phoneText.layer.cornerRadius = 8;
         phoneText.layer.masksToBounds = true;
+        phoneText.text = UserDefaults.standard.string(forKey: "UserPhone")
     }
 
     @IBAction func commitAction(_ sender: UIButton) {
