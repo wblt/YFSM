@@ -11,6 +11,8 @@ import UIKit
 import LKDBHelper
 import CryptoSwift
 import AVFoundation
+import Alamofire
+import SVProgressHUD
 
 class BlueToothEntity: NSObject {
     var peripheral: CBPeripheral?
@@ -201,6 +203,8 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     }
     
     
+    
+    
     @IBAction func startClick(_ sender: Any) {
         if  self.deviceStatus == 0 {
             var data = Data()
@@ -270,142 +274,169 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     }
     
     
-    
+    func uploadFaceData(water:String,oil:String){
+        var parameters = [String: Any]()
+        let urlString = "http://hi-watch.com.cn/tpiot/app/usrmask"
+        let userid:String = UDManager.shared.userToken();
+        parameters["userid"] = userid
+        parameters["water"] = water;
+        parameters["oil"] = oil;
+        BFunction.shared.showLoading()
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+            BFunction.shared.hideLoadingMessage()
+            if response.error != nil  {
+                SVProgressHUD.showError(withStatus: "面膜数据上传失败")
+                return
+            }
+            if let jsonResult = response.value as? Dictionary<String, Any> {
+                if jsonResult["result"] as! Int == 0 {
+                    
+                }else {
+                    SVProgressHUD.showError(withStatus: "面膜数据上传失败")
+                }
+            }
+            
+        }
+        
+    }
     
     
     @IBAction func addChartClick(_ sender: Any) {
-        let model = ChartModel()
-        model.date = 20170708
-        model.oil1 = 40
-        model.oil2 = 50
-        model.water1 = 52
-        model.water2 = 60
-        model.step = 2
-        model.saveToDB()
-        
-        
-        
-        let model2 = ChartModel()
-        model2.date = 20170709
-        model2.oil1 = 55
-        model2.oil2 = 60
-        model2.water1 = 30
-        model2.water2 = 65
-        model2.step = 2
-        model2.saveToDB()
-        
-        
-        let model3 = ChartModel()
-        model3.date = 20170710
-        model3.oil1 = 40
-        model3.oil2 = 58
-        model3.water1 = 52
-        model3.water2 = 67
-        model3.step = 2
-        model3.saveToDB()
-        
-        
-        
-        
-        let model4 = ChartModel()
-        model4.date = 20170711
-        model4.oil1 = 40
-        model4.oil2 = 50
-        model4.water1 = 52
-        model4.water2 = 60
-        model4.step = 2
-        model4.saveToDB()
-        
-        
-        
-        let model5 = ChartModel()
-        model5.date = 20170712
-        model5.oil1 = 55
-        model5.oil2 = 60
-        model5.water1 = 30
-        model5.water2 = 65
-        model5.step = 2
-        model5.saveToDB()
-        
-        
-        let model6 = ChartModel()
-        model6.date = 20170713
-        model6.oil1 = 40
-        model6.oil2 = 58
-        model6.water1 = 52
-        model6.water2 = 67
-        model6.step = 2
-        model6.saveToDB()
-        
-        
-        
-        
-        let model7 = ChartModel()
-        model7.date = 20170714
-        model7.oil1 = 40
-        model7.oil2 = 50
-        model7.water1 = 52
-        model7.water2 = 60
-        model7.step = 2
-        model7.saveToDB()
-        
-        
-        
-        let model8 = ChartModel()
-        model8.date = 20170715
-        model8.oil1 = 55
-        model8.oil2 = 60
-        model8.water1 = 30
-        model8.water2 = 65
-        model8.step = 2
-        model8.saveToDB()
-        
-        
-        let model9 = ChartModel()
-        model9.date = 20170716
-        model9.oil1 = 40
-        model9.oil2 = 58
-        model9.water1 = 52
-        model9.water2 = 67
-        model9.step = 2
-        model9.saveToDB()
-        
-        
-        
-        
-        
-        
-        
-        
-        let model10 = ChartModel()
-        model10.date = 20170717
-        model10.oil1 = 40
-        model10.oil2 = 50
-        model10.water1 = 52
-        model10.water2 = 60
-        model10.step = 2
-        model10.saveToDB()
-        
-        
-        
-        let model11 = ChartModel()
-        model11.date = 20170718
-        model11.oil1 = 55
-        model11.oil2 = 60
-        model11.water1 = 30
-        model11.water2 = 65
-        model11.step = 2
-        model11.saveToDB()
-        
-        
-        let model12 = ChartModel()
-        model12.date = 20170719
-        model12.oil1 = 40
-        model12.oil2 = 58
-        model12.water1 = 52
-        model12.water2 = 67
-        model12.step = 2
-        model12.saveToDB()
+        uploadFaceData(water: "12", oil: "23")
+//
+//
+//        let model = ChartModel()
+//        model.date = 20170708
+//        model.oil1 = 40
+//        model.oil2 = 50
+//        model.water1 = 52
+//        model.water2 = 60
+//        model.step = 2
+//        model.saveToDB()
+//
+//
+//
+//        let model2 = ChartModel()
+//        model2.date = 20170709
+//        model2.oil1 = 55
+//        model2.oil2 = 60
+//        model2.water1 = 30
+//        model2.water2 = 65
+//        model2.step = 2
+//        model2.saveToDB()
+//
+//
+//        let model3 = ChartModel()
+//        model3.date = 20170710
+//        model3.oil1 = 40
+//        model3.oil2 = 58
+//        model3.water1 = 52
+//        model3.water2 = 67
+//        model3.step = 2
+//        model3.saveToDB()
+//
+//
+//
+//
+//        let model4 = ChartModel()
+//        model4.date = 20170711
+//        model4.oil1 = 40
+//        model4.oil2 = 50
+//        model4.water1 = 52
+//        model4.water2 = 60
+//        model4.step = 2
+//        model4.saveToDB()
+//
+//
+//
+//        let model5 = ChartModel()
+//        model5.date = 20170712
+//        model5.oil1 = 55
+//        model5.oil2 = 60
+//        model5.water1 = 30
+//        model5.water2 = 65
+//        model5.step = 2
+//        model5.saveToDB()
+//
+//
+//        let model6 = ChartModel()
+//        model6.date = 20170713
+//        model6.oil1 = 40
+//        model6.oil2 = 58
+//        model6.water1 = 52
+//        model6.water2 = 67
+//        model6.step = 2
+//        model6.saveToDB()
+//
+//
+//
+//
+//        let model7 = ChartModel()
+//        model7.date = 20170714
+//        model7.oil1 = 40
+//        model7.oil2 = 50
+//        model7.water1 = 52
+//        model7.water2 = 60
+//        model7.step = 2
+//        model7.saveToDB()
+//
+//
+//
+//        let model8 = ChartModel()
+//        model8.date = 20170715
+//        model8.oil1 = 55
+//        model8.oil2 = 60
+//        model8.water1 = 30
+//        model8.water2 = 65
+//        model8.step = 2
+//        model8.saveToDB()
+//
+//
+//        let model9 = ChartModel()
+//        model9.date = 20170716
+//        model9.oil1 = 40
+//        model9.oil2 = 58
+//        model9.water1 = 52
+//        model9.water2 = 67
+//        model9.step = 2
+//        model9.saveToDB()
+//
+//
+//
+//
+//
+//
+//
+//
+//        let model10 = ChartModel()
+//        model10.date = 20170717
+//        model10.oil1 = 40
+//        model10.oil2 = 50
+//        model10.water1 = 52
+//        model10.water2 = 60
+//        model10.step = 2
+//        model10.saveToDB()
+//
+//
+//
+//        let model11 = ChartModel()
+//        model11.date = 20170718
+//        model11.oil1 = 55
+//        model11.oil2 = 60
+//        model11.water1 = 30
+//        model11.water2 = 65
+//        model11.step = 2
+//        model11.saveToDB()
+//
+//
+//        let model12 = ChartModel()
+//        model12.date = 20170719
+//        model12.oil1 = 40
+//        model12.oil2 = 58
+//        model12.water1 = 52
+//        model12.water2 = 67
+//        model12.step = 2
+//        model12.saveToDB()
     }
     
     @IBAction func 清空统计数据(_ sender: Any) {
