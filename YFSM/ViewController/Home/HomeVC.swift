@@ -277,8 +277,8 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     func uploadFaceData(water:String,oil:String){
         var parameters = [String: Any]()
         let urlString = "http://hi-watch.com.cn/tpiot/app/usrmask"
-        let userid:String = UDManager.shared.userToken();
-        parameters["userid"] = userid
+        let userDefaults = UserDefaults.standard
+        parameters["userid"] = userDefaults.value(forKey: "userid")
         parameters["water"] = water;
         parameters["oil"] = oil;
         BFunction.shared.showLoading()
@@ -290,7 +290,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             }
             if let jsonResult = response.value as? Dictionary<String, Any> {
                 if jsonResult["result"] as! Int == 0 {
-                    
+                    SVProgressHUD.showInfo(withStatus: "面膜数据上传成功")
                 }else {
                     SVProgressHUD.showError(withStatus: "面膜数据上传失败")
                 }
@@ -682,6 +682,9 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             water2Value = self.shuifenValue;
             
             //var waterUp = String(water2Value - water1Value);
+            
+            // 提交测量的数据
+            uploadFaceData(water: "\(water2Value)", oil: "\(oil2Value)")
             
             let resultVC = ResultViewController();
             self.present(resultVC, animated: true, completion: nil);

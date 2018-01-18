@@ -71,6 +71,7 @@ class LoginVC: BaseVC {
                     let userDefaults = UserDefaults.standard
                     userDefaults.setValue(self._numberTextField.text, forKey: "UserPhone")
                     userDefaults.setValue(self._passwordTextField.text, forKey: "UserPassword")
+                    userDefaults.setValue(jsonResult["userid"], forKey: "userid")
                     userDefaults.synchronize()
                     AccountManager.shared.login(response.value as! [String : Any], firstLogin: false)
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -78,7 +79,6 @@ class LoginVC: BaseVC {
                     let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
                     appDelegate.window?.rootViewController = BaseNavC(rootViewController: homeVC)
                 }else {
-                    
                     SVProgressHUD.showError(withStatus: "登录失败")
                 }
             }

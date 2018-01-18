@@ -43,10 +43,7 @@ class AccountManager {
     ///   - account: JSON数据
     ///   - firstLogin: true: 登录接口登录的
     func login(_ account: [String : Any], firstLogin: Bool = false) {
-        
         cache.setObject(account as NSCoding?, forKey:  cacheKey)
-        
-     
         let userid = "\(String(describing: account["userid"]))"
         if !userid.isEmpty {
             LogManager.shared.log("登录成功 ---- token = \(userid)")
