@@ -18,6 +18,10 @@ let tipLoading    = "正在加载"
 let cProductionDomainUrl = "http://ncvt.yundousi.com:8080/doby"
 let cTestDomainUrl       = "http://192.168.1.20"
 
+// 服务器环境
+// let api_service = "http://120.26.104.21/tpiot/app";
+let api_service = "http://120.26.104.21/tpiot/app";
+
 let cApiVersionV1 = ""
 
 let cAPPStoreID  = 1066760920

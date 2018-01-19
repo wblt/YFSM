@@ -22,4 +22,5 @@ target 'YFSM' do
   pod 'BFEmptyDataSet'
   # pod 'JSPatch'
   pod 'Alamofire'
+  pod 'MJExtension'
 end

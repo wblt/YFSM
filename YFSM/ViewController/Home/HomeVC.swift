@@ -29,6 +29,12 @@ let kDefaultDeviceUUid = "kDefaultDeviceUUid"
 
 let bubble = BubbleAnimation.init();
 
+var tan1Value:UInt32 = 0;
+var tan2Value:UInt32 = 0;
+
+var jin1Value:UInt32 = 0;
+var jin2Value:UInt32 = 0;
+
 var oil1Value = 0;
 var oil2Value = 0;
 
@@ -276,11 +282,17 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     
     func uploadFaceData(water:String,oil:String){
         var parameters = [String: Any]()
-        let urlString = "http://hi-watch.com.cn/tpiot/app/usrmask"
+        let urlString = api_service+"/usrmask"
         let userDefaults = UserDefaults.standard
         parameters["userid"] = userDefaults.value(forKey: "userid")
         parameters["water"] = water;
         parameters["oil"] = oil;
+        parameters["beforeusewater"] = "\(water1Value)";
+        parameters["beforeuseoil"] = "\(oil1Value)";
+        parameters["compactness"] = "\(jin2Value)";
+        parameters["beforeusecompactness"] = "\(jin1Value)";
+        parameters["beforeuseelastic"] = "\(tan1Value)";
+        parameters["beforeuseelastic"] = "\(tan2Value)";
         BFunction.shared.showLoading()
         Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
@@ -678,8 +690,11 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             searchResultModel.step = 2
             searchResultModel.updateToDB()
             
+            
             oil2Value = self.youfenValue;
             water2Value = self.shuifenValue;
+            tan2Value = tan1Value + afterValue();
+            jin2Value = jin1Value + afterValue();
             
             //var waterUp = String(water2Value - water1Value);
             
@@ -705,6 +720,9 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             model.step = 1
             oil1Value = self.youfenValue;
             water1Value = self.shuifenValue;
+            jin1Value = beforValue();
+            tan1Value = beforValue();
+            
             self.startLabel.text = "运行中"
             let flag = model.saveToDB()
             print("插入标志：+==="+flag);
@@ -778,6 +796,29 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         userDefault.set(switchOn, forKey: "switchOn")
         userDefault.synchronize()
     }
+    
+    // 使用前的值2到4的随机数
+    func beforValue() -> UInt32 {
+        let tanmax: UInt32 = 4
+        let tanmin: UInt32 = 2
+        let tan:Float = (Float(arc4random_uniform(tanmax - tanmin) + tanmin))
+        let yy:Float = Float(arc4random() % 10)
+        let tanxiaoshu:Float = yy / 10;
+        let tanresult:Float = tan + tanxiaoshu;
+        return UInt32(tanresult);
+    }
+    
+    // 使用后的值是是使用前的值加0到2的之间的随机数
+    func afterValue() -> UInt32  {
+        let tanmax: UInt32 = 2
+        let tanmin: UInt32 = 0
+        let jin:Float = (Float(arc4random_uniform(tanmax - tanmin) + tanmin))
+        let ss:Float = Float(arc4random() % 10)
+        let jinxiaoshu:Float = ss / 10;
+        let jinresult:Float = jin + jinxiaoshu;
+        return UInt32(jinresult);
+    }
+    
 
     // 播放音乐
     func playMusic(status:Int) {

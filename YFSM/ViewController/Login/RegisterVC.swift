@@ -44,7 +44,7 @@ class RegisterVC: BaseVC {
             SVProgressHUD.showError(withStatus: "验证码错误")
             return
         }
-        let urlString = "http://hi-watch.com.cn/tpiot/app/register"
+        let urlString = api_service+"/register"
         
         var parameters = [String: Any]()
         parameters["username"] = _numberTextField.text

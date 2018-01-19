@@ -36,16 +36,13 @@ class ResultViewController: BaseVC {
         waterup.text = "\(water)"
         
         let oi:UInt32 = (arc4random_uniform(9 - min) + min)
-        
         oile.text = "\(oi)";
         
         let tanmax: UInt32 = 6
         let tanmin: UInt32 = 2
         let jin:Float = (Float(arc4random_uniform(tanmax - tanmin) + tanmin))
-        
         let ss:Float = Float(arc4random() % 10)
         let jinxiaoshu:Float = ss / 10;
-
         let jinresult:Float = jin + jinxiaoshu;
         jinzhi.text = "\(jinresult)";
         

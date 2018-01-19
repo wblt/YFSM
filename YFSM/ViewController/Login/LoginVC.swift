@@ -52,11 +52,10 @@ class LoginVC: BaseVC {
             SVProgressHUD.showError(withStatus: "请输入密码")
             return
         }
-        let urlString = "http://hi-watch.com.cn/tpiot/app/login"
-        
+//        let urlString = "http://hi-watch.com.cn/tpiot/app/login"
+        let urlString = api_service+"/login"
+    
         var parameters = [String: Any]()
-//        parameters["username"] = "15274835385"
-//        parameters["password"] = "e10adc3949ba59abbe56e057f20f883e";
         parameters["username"] = _numberTextField.text
         parameters["password"] = _passwordTextField.text?.mattress_MD5();
         BFunction.shared.showLoading()
