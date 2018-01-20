@@ -20,10 +20,15 @@ class ChartVC: BaseVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "水油数据表"
+        self.automaticallyAdjustsScrollViewInsets = false;
         getdata();
     }
 
     func initEView() {
+        let scrollView = UIScrollView()
+        scrollView.frame = CGRect(x:0, y:0, width:kScreenFrameW, height:kScreenFrameH)
+        scrollView.contentSize = CGSize(width: kScreenFrameW, height: kScreenFrameH*2 - 150);
+        self.view.addSubview(scrollView)
         //let modelArry = ChartModel.search(withWhere: ["step":2], orderBy: nil, offset: 0, count: 65535) as! [ChartModel]
         var oil1Array:[String] = []
         var oil2Array:[String] = []
@@ -51,15 +56,29 @@ class ChartVC: BaseVC {
         }
         let chartView = ChartView()
         chartView.backgroundColor = UIColor.clear
-        chartView.frame = CGRect(x: CGFloat(0), y: CGFloat(64), width: CGFloat(kScreenFrameW), height: CGFloat(kScreenFrameH / 2) - 50)
+        chartView.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(kScreenFrameW), height: CGFloat(kScreenFrameH / 2) - 50)
         chartView.setData(data1Array: water1Array, data2Array: water2Array, titlesArray: xTitles, title: "皮肤水份/%")
-        self.view.addSubview(chartView)
+        scrollView.addSubview(chartView)
         
         let chart2View = ChartView()
         chart2View.backgroundColor = UIColor.clear
         chart2View.frame = CGRect(x: CGFloat(0), y: chartView.frame.maxY + 15, width: CGFloat(kScreenFrameW), height: CGFloat(kScreenFrameH / 2) - 50)
         chart2View.setData(data1Array: oil1Array, data2Array: oil2Array, titlesArray: xTitles, title: "皮肤油份/%")
-        self.view.addSubview(chart2View)
+        scrollView.addSubview(chart2View)
+        
+        // 紧致度
+        let chart3View = ChartView()
+        chart3View.backgroundColor = UIColor.clear
+        chart3View.frame = CGRect(x: CGFloat(0), y: chart2View.frame.maxY + 15, width: CGFloat(kScreenFrameW), height: CGFloat(kScreenFrameH / 2) - 50)
+        chart3View.setData(data1Array: oil1Array, data2Array: oil2Array, titlesArray: xTitles, title: "皮肤紧致度/%")
+        scrollView.addSubview(chart3View)
+        
+        // 弹性
+        let chart4View = ChartView()
+        chart4View.backgroundColor = UIColor.clear
+        chart4View.frame = CGRect(x: CGFloat(0), y: chart3View.frame.maxY + 15, width: CGFloat(kScreenFrameW), height: CGFloat(kScreenFrameH / 2) - 50)
+        chart4View.setData(data1Array: oil1Array, data2Array: oil2Array, titlesArray: xTitles, title: "皮肤弹性值/%")
+        scrollView.addSubview(chart4View)
     }
     
     override func didReceiveMemoryWarning() {
