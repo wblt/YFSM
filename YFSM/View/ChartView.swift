@@ -14,6 +14,9 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
     var data2Array:[String] = []
     var xTitles:[String] = []
     var title:String = ""
+    var maxValue:Double = 0;
+    var minValue:Double = 0;
+    var labelsCount:Int = 0;
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     func setData(data1Array:[String],data2Array:[String],titlesArray:[String],title:String) {
@@ -22,6 +25,13 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         self.xTitles = titlesArray
         self.title = title
     }
+    
+    func setMaxValue(max:Double,min:Double,count:Int) {
+        self.maxValue = max;
+        self.labelsCount = count;
+        self.minValue = min;
+    }
+    
     init() {
         super.init(frame: CGRect.zero)
     }
@@ -81,16 +91,16 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         lineChartView.pinchZoomEnabled = true
         lineChartView.rightAxis.enabled = false //不绘制右边轴
         lineChartView.xAxis.drawGridLinesEnabled = false  //不绘制左边
-        lineChartView.leftAxis.labelCount = 11 //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
+        lineChartView.leftAxis.labelCount = self.labelsCount //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
         lineChartView.leftAxis.forceLabelsEnabled = true//强制绘制指定数量的label
-        lineChartView.leftAxis.axisMinimum = 0 //设置Y轴的最小值
-        lineChartView.leftAxis.axisMaximum = 100 //设置Y轴的最大值
+        lineChartView.leftAxis.axisMinimum = self.minValue //设置Y轴的最小值
+        lineChartView.leftAxis.axisMaximum = self.maxValue //设置Y轴的最大值
         lineChartView.leftAxis.labelFont = UIFont.systemFont(ofSize: CGFloat(12.0))
         lineChartView.leftAxis.labelTextColor = UIColor.init(white: 1, alpha: 0.7)
         lineChartView.leftAxis.axisLineColor = UIColor.init(white: 1, alpha: 0.7)
         lineChartView.leftAxis.gridColor = UIColor.init(white: 1, alpha: 0.7)
         lineChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom //设置x轴数据在底部
-        lineChartView.xAxis.labelFont = UIFont.systemFont(ofSize: CGFloat(12.0))//设置x文字字体大小
+        lineChartView.xAxis.labelFont = UIFont.systemFont(ofSize: CGFloat(9.0))//设置x文字字体大小
         lineChartView.xAxis.labelTextColor = UIColor.init(white: 1, alpha: 0.9)
         lineChartView.xAxis.granularityEnabled = true //设置重复的值不显示
         lineChartView.xAxis.axisLineColor = UIColor.init(white: 1, alpha: 0.7)
@@ -102,13 +112,12 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         valueArray.add(self.data2Array)
         let dataSets:NSMutableArray = []
         for i in 0..<valueArray.count {
-            let values : [String] = valueArray[i] as! [String]
+            let values : [String] = (valueArray[i] as! [String])
             let yVals :NSMutableArray = []
             let legendName: String = "第\(i)个图例"
             for i in 0..<values.count {
                 let valStr: String = "\(values[i])"
                 let val: Double = valStr.double!
-
                 let entry = ChartDataEntry(x: Double(i), y: val)
                 yVals.add(entry)
             }
@@ -129,6 +138,7 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         lineChartView.data = nil
         lineChartView.xAxis.axisMinimum = -0.8
         lineChartView.xAxis.axisMaximum = 5.1
+        lineChartView.xAxis.spaceMin = 30;
         lineChartView.data = data
         lineChartView.animate(xAxisDuration: 0.3)
         lineChartView.xAxis.valueFormatter = self
