@@ -154,7 +154,6 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         }else{
             return self.xTitles[index]
         }
-        
-        
+
     }
 }
