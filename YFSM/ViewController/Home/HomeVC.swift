@@ -284,7 +284,8 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         var parameters = [String: Any]()
         let urlString = api_service+"/usrmask"
         let userDefaults = UserDefaults.standard
-        parameters["userid"] = userDefaults.value(forKey: "userid")
+        let userid:String = userDefaults.object(forKey: "userid") as! String;
+        parameters["userid"] = userid;
         parameters["water"] = water;
         parameters["oil"] = oil;
         parameters["beforeusewater"] = "\(water1Value)";
@@ -292,7 +293,18 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         parameters["compactness"] = "\(jin2Value)";
         parameters["beforeusecompactness"] = "\(jin1Value)";
         parameters["beforeuseelastic"] = "\(tan1Value)";
-        parameters["beforeuseelastic"] = "\(tan2Value)";
+        parameters["elastic"] = "\(tan2Value)";
+        
+        //let userid:String = userDefaults.object(forKey: "userid") as! String;
+//        parameters["userid"] = userid;
+//        parameters["water"] = water;
+//        parameters["oil"] = oil;
+//        parameters["beforeusewater"] = "58";
+//        parameters["beforeuseoil"] = "44";
+//        parameters["compactness"] = "3";
+//        parameters["beforeusecompactness"] = "2";
+//        parameters["beforeuseelastic"] = "2";
+//        parameters["elastic"] = "2";
         BFunction.shared.showLoading()
         Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
@@ -969,7 +981,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         })
         //  self.moreMenu?.removeFromSuperview()
         
-        self.moreMenu = JHCustomMenu(dataArr: ["搜索设备", "水油数据", "使用教程", "注销登录", "意见反馈"], origin: CGPoint(x: kScreenFrameW - 125 - 20 , y: 64), width: 125, rowHeight: 44)
+        self.moreMenu = JHCustomMenu(dataArr: ["搜索设备", "水油数据", "使用教程", "注销登录","代理","商城", "意见反馈"], origin: CGPoint(x: kScreenFrameW - 125 - 20 , y: 64), width: 125, rowHeight: 44)
         
         
         self.moreMenu?.delegate = self
@@ -978,7 +990,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             self.moreMenu = nil
             
         }
-        self.moreMenu?.arrImgName = ["icon-serch", "chart_icon", "icon-jiaocheng", "chart_icon", "icon-jiaocheng"]
+        self.moreMenu?.arrImgName = ["icon-serch", "chart_icon", "icon-jiaocheng", "chart_icon","icon-jiaocheng","icon-jiaocheng", "icon-jiaocheng"]
         view.addSubview(self.moreMenu!)
         
         
@@ -1013,6 +1025,19 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             alrtView.show()
         }
         if indexPath.row == 4 {
+            // 代理
+            let url:String = "http://www.hi-watch.com.cn/weixin/shop/agent";
+            NavigationManager.pushToWebView(form: self, url: url)
+            
+        }
+        if indexPath.row == 5 {
+            // 商城
+            let userDefaults = UserDefaults.standard
+            let phone:String = userDefaults.value(forKey: "UserPhone") as! String
+            let url:String = "http://www.hi-watch.com.cn/weixin/shop/shopList?openid="+phone;
+            NavigationManager.pushToWebView(form: self, url: url)
+        }
+        if indexPath.row == 6 {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let suggestionsVC = storyboard.instantiateViewController(withIdentifier: "SuggestionsVC") as! SuggestionsVC
             self.navigationController?.pushViewController(suggestionsVC, animated: true)

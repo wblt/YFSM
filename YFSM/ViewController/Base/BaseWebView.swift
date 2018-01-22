@@ -198,8 +198,7 @@ extension BaseWebView {
         self.view.addSubview(_webView)
         
         
-        if !loadFileName.isEmpty {
-        
+        if loadFileName != nil {
             if let path = Bundle.main.path(forResource: loadFileName, ofType: "html") {
                 
                 do {
@@ -216,7 +215,7 @@ extension BaseWebView {
         
         }
         
-        else if !loadURLString.isEmpty {
+        else if loadURLString != nil {
             let request = URLRequest(url: URL(string: loadURLString)!)
             _webView.load(request)
         }
