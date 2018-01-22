@@ -294,8 +294,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         parameters["beforeusecompactness"] = "\(jin1Value)";
         parameters["beforeuseelastic"] = "\(tan1Value)";
         parameters["elastic"] = "\(tan2Value)";
-        
-        //let userid:String = userDefaults.object(forKey: "userid") as! String;
+//        let userid:String = userDefaults.object(forKey: "userid") as! String;
 //        parameters["userid"] = userid;
 //        parameters["water"] = water;
 //        parameters["oil"] = oil;
