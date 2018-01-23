@@ -123,6 +123,8 @@
 		36232153200AFDB300E60794 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 36232152200AFDB300E60794 /* libz.tbd */; };
 		36232197200E707800E60794 /* ChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36232196200E707800E60794 /* ChartModel.m */; };
 		362321A52012526200E60794 /* FaceDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 362321A42012526200E60794 /* FaceDataModel.m */; };
+		3623A13020178E6400FFA177 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623A12E20178E6400FFA177 /* SettingVC.swift */; };
+		3623A13120178E6400FFA177 /* SettingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623A12F20178E6400FFA177 /* SettingVC.xib */; };
 		503325D3B01B5D95DCC6EE55 /* Pods_YFSM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9AE3DEF952D45E0B5B802BC /* Pods_YFSM.framework */; };
 		8D425BAD200C71CF0067D706 /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D425BAC200C71CF0067D706 /* NetworkTools.swift */; };
 		8D425BAF200CB1160067D706 /* SuggestionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D425BAE200CB1160067D706 /* SuggestionsVC.swift */; };
@@ -287,6 +289,8 @@
 		36232196200E707800E60794 /* ChartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartModel.m; sourceTree = "<group>"; };
 		362321A32012526200E60794 /* FaceDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceDataModel.h; sourceTree = "<group>"; };
 		362321A42012526200E60794 /* FaceDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceDataModel.m; sourceTree = "<group>"; };
+		3623A12E20178E6400FFA177 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
+		3623A12F20178E6400FFA177 /* SettingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingVC.xib; sourceTree = "<group>"; };
 		45DB0ACA37AF3B3ADADF24B7 /* Pods-YFSM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YFSM.release.xcconfig"; path = "Pods/Target Support Files/Pods-YFSM/Pods-YFSM.release.xcconfig"; sourceTree = "<group>"; };
 		8D425BAC200C71CF0067D706 /* NetworkTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		8D425BAE200CB1160067D706 /* SuggestionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsVC.swift; sourceTree = "<group>"; };
@@ -671,6 +675,8 @@
 				362320E8200AFB8200E60794 /* ResultViewController.xib */,
 				8D425BAE200CB1160067D706 /* SuggestionsVC.swift */,
 				362320E9200AFB8200E60794 /* Views */,
+				3623A12E20178E6400FFA177 /* SettingVC.swift */,
+				3623A12F20178E6400FFA177 /* SettingVC.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -984,6 +990,7 @@
 				36232100200AFB8200E60794 /* ResultViewController.xib in Resources */,
 				3623207F200AFB2400E60794 /* phoneicon.svg in Resources */,
 				36232020200AF9A500E60794 /* Main.storyboard in Resources */,
+				3623A13120178E6400FFA177 /* SettingVC.xib in Resources */,
 				36232094200AFB2400E60794 /* jquery.mmenu.min.all.js in Resources */,
 				36232091200AFB2400E60794 /* jquery.easy-pie-chart.js in Resources */,
 			);
@@ -1131,6 +1138,7 @@
 				36232104200AFB8200E60794 /* LoginVC.swift in Sources */,
 				362320F8200AFB8200E60794 /* BaseNavC.swift in Sources */,
 				EE016B16200B679B00235DF7 /* RegisterVC.swift in Sources */,
+				3623A13020178E6400FFA177 /* SettingVC.swift in Sources */,
 				362320BE200AFB4500E60794 /* BabyBluetooth.m in Sources */,
 				36232121200AFB9C00E60794 /* Int+AddOn.swift in Sources */,
 				8D425BAD200C71CF0067D706 /* NetworkTools.swift in Sources */,

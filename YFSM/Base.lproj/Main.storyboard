@@ -290,7 +290,6 @@
                         <outletCollection property="deviceBtns" destination="fT2-9X-RlI" collectionClass="NSMutableArray" id="k9i-kN-gk4"/>
                         <outletCollection property="deviceBtns" destination="jPz-gc-ckm" collectionClass="NSMutableArray" id="dU8-AW-tsc"/>
                         <outletCollection property="deviceBtns" destination="gfG-XO-BUb" collectionClass="NSMutableArray" id="PTG-Ib-M3l"/>
-                        <segue destination="cql-f6-3gd" kind="push" identifier="GoChartSegueIdentifier" id="2o1-Tx-s43"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -300,7 +299,7 @@
         <!--ChartVC-->
         <scene sceneID="Ru1-Vm-eLU">
             <objects>
-                <viewController id="cql-f6-3gd" customClass="ChartVC" customModule="YFSM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoChartSegueIdentifier" id="cql-f6-3gd" customClass="ChartVC" customModule="YFSM" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4z1-tg-5db"/>
                         <viewControllerLayoutGuide type="bottom" id="9PE-lD-eag"/>

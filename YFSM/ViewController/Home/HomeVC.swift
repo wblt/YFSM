@@ -136,11 +136,14 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         self.connectView.isHidden = false
         self.startView.isHidden = true
         
-        self.navigationItem.leftBarButtonItem = nil
+        //self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        let leftBtn = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(self.btnClickss(_:)))
+        self.navigationItem.leftBarButtonItem = leftBtn
         
         self.setBabyDelegate()
 
-        
         self.startAnimation()
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -169,6 +172,11 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
 
         
         
+    }
+    
+    @objc func btnClickss(_ sender:AnyObject) {
+        let settingVC = SettingVC();
+        self.navigationController?.pushViewController(settingVC, animated: true);
     }
     
 
@@ -968,6 +976,8 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         shuifenLabel.text = "水:\(self.shuifenValue!)%"
         youfenLabel.text = "油:\(self.youfenValue!)%"
     }
+    
+    
     
     
     
