@@ -199,10 +199,10 @@ extension BaseWebView {
         
         
         if loadFileName != nil {
-            if let path = Bundle.main.path(forResource: loadFileName, ofType: "html") {
-                
+            let path = Bundle.main.path(forResource: loadFileName, ofType: "html")
+            if (path != nil) {
                 do {
-                    let htmlContent = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
+                    let htmlContent = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
                     
                     // let baseURL = URL(fileURLWithPath: path)
                     _webView.loadHTMLString(htmlContent, baseURL: nil)

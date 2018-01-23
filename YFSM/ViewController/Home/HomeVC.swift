@@ -1016,7 +1016,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             self.performSegue(withIdentifier: "GoChartSegueIdentifier", sender: nil)
         }
         if indexPath.row == 2 {
-            NavigationManager.pushToNativeWebView(form: self, fileName: "h5/operation", title: "更多" )
+            NavigationManager.pushToNativeWebView(form: self, fileName: "operation", title: "更多" )
         }
         if indexPath.row == 3 {
             
