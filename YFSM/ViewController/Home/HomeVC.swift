@@ -41,6 +41,8 @@ var oil2Value = 0;
 var water1Value = 0;
 var water2Value = 0;
 
+var searchNumber:Int = 0;
+
 class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate {
     @IBOutlet weak var connectView: UIView!
     
@@ -88,6 +90,9 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     var musicArr:Array<String> = []
     var musicStatus:UInt8 = 0;
     var switchOn:Bool = false;
+    
+    
+    @IBOutlet weak var search_device_btn: UIButton!
     
     @IBOutlet weak var playButton: UIButton!
 
@@ -139,22 +144,17 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         //self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil;
         
-        let leftBtn = UIBarButtonItem(image: UIImage(named: "setting"), style: .plain, target: self, action: #selector(self.btnClickss(_:)))
+        let leftBtn = UIBarButtonItem(image: UIImage(named: "admin"), style: .plain, target: self, action: #selector(self.btnClickss(_:)))
         self.navigationItem.leftBarButtonItem = leftBtn
-        
         self.setBabyDelegate()
-
         self.startAnimation()
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             try AVAudioSession.sharedInstance().setActive(true)
-
             try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-
         } catch {
 
         }
-        
         let path1 = Bundle.main.path(forResource: "m1", ofType: "mp3")
         let path2 = Bundle.main.path(forResource: "m2", ofType: "mp3")
         let path3 = Bundle.main.path(forResource: "m3", ofType: "mp3")
@@ -169,9 +169,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         } catch {
             audioPlayer = nil
         }
-
-        
-        
     }
     
     @objc func btnClickss(_ sender:AnyObject) {
@@ -274,19 +271,11 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     }
     
     
-    
-    
     @IBAction func connectClick(_ sender: Any) {
-        
-        
-        
         self.startAnimation()
-        
         self.setOnDiscoverSerchDevice()
         //self.connectDevice()
-        
     }
-    
     
     func uploadFaceData(water:String,oil:String){
         var parameters = [String: Any]()
@@ -333,7 +322,8 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     
     
     @IBAction func addChartClick(_ sender: Any) {
-        uploadFaceData(water: "12", oil: "23")
+        searchDevice();
+        //uploadFaceData(water: "12", oil: "23")
 //
 //
 //        let model = ChartModel()
@@ -470,6 +460,29 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
 //        model12.saveToDB()
     }
     
+    
+    @IBAction func searchBtnClick(sender: UIButton) {
+        LogManager.shared.log("开始搜索设备了")
+        self.search_device_btn.isUserInteractionEnabled = false;
+        self.search_device_btn.setTitle("正在搜索中", for: .normal);
+        self.searchDevice();
+    }
+    
+    // 搜索设备
+    func searchDevice() {
+        self.hasPopView = false
+        self.hasSerch = true
+        self.peripleralArray.removeAll()
+        self.currPeripheral = nil
+        self.baby.cancelAllPeripheralsConnection()
+        self.baby.cancelScan()
+        _ = baby.scanForPeripherals().begin()
+        self.connectView.isHidden = false
+        self.startView.isHidden = true
+        self.setBabyDelegate()
+        self.setOnDiscoverSerchDevice()
+    }
+    
     @IBAction func 清空统计数据(_ sender: Any) {
         let globalHelper = ChartModel.getUsingLKDBHelper()
         
@@ -574,7 +587,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             let characteristics = self.services[1].characteristics![0]
             
             self.currPeripheral.writeValue(data as Data, for: characteristics, type: CBCharacteristicWriteType.withoutResponse)
-            
+
         }
  
     }
@@ -611,8 +624,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     }
     
     
-    
-    
     //MARK:订阅一个值,用来接收设备每秒发送过来的数据
     func setNotifiy() {
         
@@ -625,7 +636,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         if  characteristics.isNotifying == false {
             
             self.currPeripheral.setNotifyValue(true, for: characteristics)
-            
         }
     }
     
@@ -1094,23 +1104,37 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
 
 //MARK:蓝牙的拓展
 fileprivate extension HomeVC {
-    
     func setOnDiscoverSerchDevice() {
         //已经选择设备的情况下就不需要处理了
      /*   if self.currPeripheral != nil {
             return
         }*/
-        
         if self.currPeripheral == nil {
             Utility.delay(3, closure: {
-                self.setOnDiscoverSerchDevice()
+                // 这里应加一个提示搜索的按钮
+                if searchNumber == 4 {
+                    // 提示没有搜索到设备
+                    SVProgressHUD.showInfo(withStatus: "没有搜索到设备,请检测设备是否打开");
+                    self.search_device_btn.isHidden = false;
+                    self.search_device_btn.isUserInteractionEnabled = true;
+                    self.search_device_btn.setTitle("没有搜索到设备,点我再次搜索", for: .normal);
+                    return;
+                } else {
+                    searchNumber = searchNumber + 1;
+                    self.setOnDiscoverSerchDevice()
+                }
+                
             })
+        } else {
+            // 表示已经有设备了，则隐藏搜索的button
+            self.search_device_btn.isHidden = true;
+            return;
         }
-        
         //用户主动搜索让列表框弹出来
         if self.hasSerch == true {
             if hasPopView == false {
-                self.searchView.show()
+                // 不弹窗
+                //self.searchView.show()
                 self.hasPopView = true
             }
             self.searchView.setData(dataArray: self.peripleralArray)
@@ -1120,15 +1144,9 @@ fileprivate extension HomeVC {
         if self.peripleralArray.count == 0 {
             return
         }
-
-
-        
         //缓存里面没有设备就弹窗让用户选择
         if self.peripleralArray.count > 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) == nil) {
-
-
             self.searchView.setData(dataArray: self.peripleralArray)
-            
         }else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) == nil) {
             let peripheral = self.peripleralArray[0]
             self.currPeripheral = peripheral
@@ -1137,12 +1155,9 @@ fileprivate extension HomeVC {
             UserDefaults.standard.set(currPeripheral.identifier.uuidString, forKey: kDefaultDeviceUUid)
             return
         }
-
-        
         //查找默认链接的设备
         for peripheral in self.peripleralArray {
             if let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String  {
-                
                 if uuidString == peripheral.identifier.uuidString  {
                     self.currPeripheral = peripheral
                     //self.startAnimation()
@@ -1151,18 +1166,12 @@ fileprivate extension HomeVC {
                 }
             }
         }
-        
         //没找到默认连接的设备就弹窗
-        
         if hasPopView == false {
-            self.searchView.show()
+            // 不弹窗
+            //self.searchView.show()
         }
-        
         self.searchView.setData(dataArray: self.peripleralArray)
-        
-        
-
-        
     }
     
     func connectDevice() {
@@ -1185,24 +1194,15 @@ fileprivate extension HomeVC {
      进行第一步: 搜索到周围所有的蓝牙设备
      */
     func setBabyDelegate() {
-        
         //获取设备状态
         baby.setBlockOnCentralManagerDidUpdateState { (central:CBCentralManager?) in
-            
             if central?.state == .poweredOn  {
-                
                 LogManager.shared.log("设备打开成功，开始扫描设备")
                 self.setOnDiscoverSerchDevice()
             }else{
                 
-           
-                
-  
             }
-            
-            
         }
-        
         //过滤器
         //设置查找设备的过滤器
         baby.setFilterOnDiscoverPeripherals { (name, adv, RSSi) -> Bool in

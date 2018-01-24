@@ -35,7 +35,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNQ-pj-Gth">
                                     <rect key="frame" x="0.0" y="64" width="375" height="50"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机号" translatesAutoresizingMaskIntoConstraints="NO" id="eLq-Rn-Q1o">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adlogin" translatesAutoresizingMaskIntoConstraints="NO" id="eLq-Rn-Q1o">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="g8p-yW-5V9"/>
@@ -80,7 +80,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjE-Mc-rok">
                                     <rect key="frame" x="0.0" y="119" width="375" height="50"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机号" translatesAutoresizingMaskIntoConstraints="NO" id="JIy-PA-REu">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adcourse" translatesAutoresizingMaskIntoConstraints="NO" id="JIy-PA-REu">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="RxV-l2-ra9"/>
@@ -126,7 +126,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cF6-mG-FX2">
                                     <rect key="frame" x="0.0" y="174" width="375" height="50"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机号" translatesAutoresizingMaskIntoConstraints="NO" id="QWw-qh-gZx">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adform" translatesAutoresizingMaskIntoConstraints="NO" id="QWw-qh-gZx">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="Be0-jq-sVw"/>
@@ -172,7 +172,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ic-ys-t4T">
                                     <rect key="frame" x="0.0" y="229" width="375" height="50"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机号" translatesAutoresizingMaskIntoConstraints="NO" id="MRr-cP-Y0M">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adform" translatesAutoresizingMaskIntoConstraints="NO" id="MRr-cP-Y0M">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="21x-HV-jG2"/>
@@ -218,7 +218,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNP-Ej-cU2">
                                     <rect key="frame" x="0.0" y="284" width="375" height="50"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机号" translatesAutoresizingMaskIntoConstraints="NO" id="P1K-ec-dVV">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adform" translatesAutoresizingMaskIntoConstraints="NO" id="P1K-ec-dVV">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="7s0-4F-bf9"/>
@@ -264,7 +264,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxU-no-Rbm">
                                     <rect key="frame" x="0.0" y="339" width="375" height="50"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机号" translatesAutoresizingMaskIntoConstraints="NO" id="laL-ob-is9">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question" translatesAutoresizingMaskIntoConstraints="NO" id="laL-ob-is9">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="QEk-Ni-cn2"/>
@@ -352,7 +352,10 @@
         </view>
     </objects>
     <resources>
+        <image name="adcourse" width="22" height="22"/>
+        <image name="adform" width="22" height="24"/>
+        <image name="adlogin" width="23" height="25"/>
+        <image name="question" width="29" height="28"/>
         <image name="right_arrow" width="30" height="30"/>
-        <image name="手机号" width="32" height="32"/>
     </resources>
 </document>
