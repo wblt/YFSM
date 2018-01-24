@@ -169,7 +169,7 @@
                                         <constraint firstAttribute="trailing" secondItem="cWP-zN-hEO" secondAttribute="trailing" constant="8" id="yyl-st-dRc"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ic-ys-t4T">
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ic-ys-t4T">
                                     <rect key="frame" x="0.0" y="229" width="375" height="50"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adform" translatesAutoresizingMaskIntoConstraints="NO" id="MRr-cP-Y0M">
@@ -215,7 +215,7 @@
                                         <constraint firstItem="PlA-h2-N6Z" firstAttribute="centerY" secondItem="1ic-ys-t4T" secondAttribute="centerY" id="tic-U4-T1T"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNP-Ej-cU2">
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNP-Ej-cU2">
                                     <rect key="frame" x="0.0" y="284" width="375" height="50"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adform" translatesAutoresizingMaskIntoConstraints="NO" id="P1K-ec-dVV">
@@ -262,7 +262,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxU-no-Rbm">
-                                    <rect key="frame" x="0.0" y="339" width="375" height="50"/>
+                                    <rect key="frame" x="0.0" y="229" width="375" height="50"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question" translatesAutoresizingMaskIntoConstraints="NO" id="laL-ob-is9">
                                             <rect key="frame" x="16" y="10" width="30" height="30"/>
@@ -317,7 +317,7 @@
                                 <constraint firstAttribute="trailing" secondItem="ZxU-no-Rbm" secondAttribute="trailing" id="Gug-aA-sl3"/>
                                 <constraint firstItem="1ic-ys-t4T" firstAttribute="top" secondItem="cF6-mG-FX2" secondAttribute="bottom" constant="5" id="HTf-Ab-57j"/>
                                 <constraint firstItem="UNP-Ej-cU2" firstAttribute="top" secondItem="1ic-ys-t4T" secondAttribute="bottom" constant="5" id="Hn0-Tk-Ah7"/>
-                                <constraint firstItem="ZxU-no-Rbm" firstAttribute="top" secondItem="UNP-Ej-cU2" secondAttribute="bottom" constant="5" id="IGx-nb-oAy"/>
+                                <constraint firstItem="ZxU-no-Rbm" firstAttribute="top" secondItem="cF6-mG-FX2" secondAttribute="bottom" constant="5" id="IGx-nb-oAy"/>
                                 <constraint firstAttribute="trailing" secondItem="1ic-ys-t4T" secondAttribute="trailing" id="JmZ-cZ-KGx"/>
                                 <constraint firstItem="cF6-mG-FX2" firstAttribute="leading" secondItem="FYq-Ep-jg9" secondAttribute="leading" id="K8h-42-HLb"/>
                                 <constraint firstItem="qjE-Mc-rok" firstAttribute="top" secondItem="cNQ-pj-Gth" secondAttribute="bottom" constant="5" id="PYf-xC-PAt"/>

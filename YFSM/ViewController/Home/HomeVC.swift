@@ -141,11 +141,10 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         self.connectView.isHidden = false
         self.startView.isHidden = true
         
-        //self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = nil;
-        
-        let leftBtn = UIBarButtonItem(image: UIImage(named: "admin"), style: .plain, target: self, action: #selector(self.btnClickss(_:)))
-        self.navigationItem.leftBarButtonItem = leftBtn
+        self.navigationItem.leftBarButtonItem = nil
+        //self.navigationItem.rightBarButtonItem = nil;
+        let rightBtn = UIBarButtonItem(image: UIImage(named: "admin"), style: .plain, target: self, action: #selector(self.btnClickss(_:)))
+        self.navigationItem.rightBarButtonItem = rightBtn
         self.setBabyDelegate()
         self.startAnimation()
         do {
