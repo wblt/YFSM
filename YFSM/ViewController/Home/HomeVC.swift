@@ -13,6 +13,7 @@ import CryptoSwift
 import AVFoundation
 import Alamofire
 import SVProgressHUD
+import MBProgressHUD
 
 class BlueToothEntity: NSObject {
     var peripheral: CBPeripheral?
@@ -125,7 +126,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.title = "智惠面膜"
+        self.title = "清肤源智惠面膜"
         
         device_name.text = ""
         daojishiLabel.text = ""
@@ -1111,9 +1112,9 @@ fileprivate extension HomeVC {
         if self.currPeripheral == nil {
             Utility.delay(3, closure: {
                 // 这里应加一个提示搜索的按钮
-                if searchNumber == 4 {
+                if searchNumber == 3 {
                     // 提示没有搜索到设备
-                    SVProgressHUD.showInfo(withStatus: "没有搜索到设备,请检测设备是否打开");
+                    MBProgressHUD.showHint("未搜索到设备,请检测设备是否打开")
                     self.search_device_btn.isHidden = false;
                     self.search_device_btn.isUserInteractionEnabled = true;
                     self.search_device_btn.setTitle("没有搜索到设备,点我再次搜索", for: .normal);
