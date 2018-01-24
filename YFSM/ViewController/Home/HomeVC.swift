@@ -462,9 +462,10 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     
     
     @IBAction func searchBtnClick(sender: UIButton) {
+        searchNumber = 0;
         LogManager.shared.log("开始搜索设备了")
         self.search_device_btn.isUserInteractionEnabled = false;
-        self.search_device_btn.setTitle("正在搜索中", for: .normal);
+        self.search_device_btn.setTitle("正在搜索中...", for: .normal);
         self.searchDevice();
     }
     
@@ -1118,7 +1119,7 @@ fileprivate extension HomeVC {
                     self.search_device_btn.isHidden = false;
                     self.search_device_btn.isUserInteractionEnabled = true;
                     self.search_device_btn.setTitle("搜索不到设备,点击我再次搜索", for: .normal);
-                    return;
+                    //return;
                 } else {
                     searchNumber = searchNumber + 1;
                     self.setOnDiscoverSerchDevice()
@@ -1128,7 +1129,6 @@ fileprivate extension HomeVC {
         } else {
             // 表示已经有设备了，则隐藏搜索的button
             self.search_device_btn.isHidden = true;
-            return;
         }
         //用户主动搜索让列表框弹出来
         if self.hasSerch == true {
