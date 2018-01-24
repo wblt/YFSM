@@ -1114,10 +1114,10 @@ fileprivate extension HomeVC {
                 // 这里应加一个提示搜索的按钮
                 if searchNumber == 3 {
                     // 提示没有搜索到设备
-                    MBProgressHUD.showHint("未搜索到设备,请检测设备是否打开")
+                    MBProgressHUD.showHint("亲爱的搜索不到设备,请你检查设备")
                     self.search_device_btn.isHidden = false;
                     self.search_device_btn.isUserInteractionEnabled = true;
-                    self.search_device_btn.setTitle("没有搜索到设备,点我再次搜索", for: .normal);
+                    self.search_device_btn.setTitle("搜索不到设备,点击我再次搜索", for: .normal);
                     return;
                 } else {
                     searchNumber = searchNumber + 1;
