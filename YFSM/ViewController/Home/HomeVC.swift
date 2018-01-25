@@ -1112,6 +1112,7 @@ fileprivate extension HomeVC {
         }*/
         if self.currPeripheral == nil {
             Utility.delay(3, closure: {
+                self.setOnDiscoverSerchDevice()
                 // 这里应加一个提示搜索的按钮
                 if searchNumber == 3 {
                     // 提示没有搜索到设备
@@ -1119,12 +1120,9 @@ fileprivate extension HomeVC {
                     self.search_device_btn.isHidden = false;
                     self.search_device_btn.isUserInteractionEnabled = true;
                     self.search_device_btn.setTitle("搜索不到设备,点击我再次搜索", for: .normal);
-                    //return;
                 } else {
                     searchNumber = searchNumber + 1;
-                    self.setOnDiscoverSerchDevice()
                 }
-                
             })
         } else {
             // 表示已经有设备了，则隐藏搜索的button
@@ -1133,8 +1131,7 @@ fileprivate extension HomeVC {
         //用户主动搜索让列表框弹出来
         if self.hasSerch == true {
             if hasPopView == false {
-                // 不弹窗
-                //self.searchView.show()
+                self.searchView.show()
                 self.hasPopView = true
             }
             self.searchView.setData(dataArray: self.peripleralArray)
@@ -1168,8 +1165,7 @@ fileprivate extension HomeVC {
         }
         //没找到默认连接的设备就弹窗
         if hasPopView == false {
-            // 不弹窗
-            //self.searchView.show()
+            self.searchView.show()
         }
         self.searchView.setData(dataArray: self.peripleralArray)
     }
