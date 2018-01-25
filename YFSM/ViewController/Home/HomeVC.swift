@@ -43,6 +43,7 @@ var water1Value = 0;
 var water2Value = 0;
 
 var searchNumber:Int = 0;
+var btn_Click = 0;
 
 class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayerDelegate,UIAlertViewDelegate {
     @IBOutlet weak var connectView: UIView!
@@ -463,6 +464,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     
     @IBAction func searchBtnClick(sender: UIButton) {
         searchNumber = 0;
+        btn_Click = 0;
         LogManager.shared.log("开始搜索设备了")
         self.search_device_btn.isUserInteractionEnabled = false;
         self.search_device_btn.setTitle("正在搜索中...", for: .normal);
@@ -669,13 +671,12 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         self.deviceStatus = status
         
         if currPeripheral != nil {
+            self.search_device_btn.isHidden = true;
             self.device_name.text = currPeripheral.identifier.uuidString.components(separatedBy: "-")[0]
         } else {
             self.device_name.text = ""
         }
-        
         print("dddddd你好---------------------------")
-        
         print("identifier"+currPeripheral.identifier.uuidString + "name:"+currPeripheral.name)
         
         
@@ -709,7 +710,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
             self.setNotifiy()
             daojishiLabel.isHidden = true
           
-            
             let date = (Date.currentTime().substringToIndex(10)!.replacingOccurrences(of: "-", with: "") as NSString).integerValue
             
             let searchResultModel = ChartModel.searchSingle(withWhere: ["date":date], orderBy: nil) as! ChartModel
@@ -1012,8 +1012,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         }
         self.moreMenu?.arrImgName = ["icon-serch", "chart_icon", "icon-jiaocheng", "chart_icon","icon-jiaocheng","icon-jiaocheng", "icon-jiaocheng"]
         view.addSubview(self.moreMenu!)
-        
-        
+    
     }
     
     func jhCustomMenu(_ tableView: UITableView!, didSelectRowAt indexPath: IndexPath!) {
@@ -1042,6 +1041,7 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         if indexPath.row == 3 {
             
             let alrtView = UIAlertView(title: "温馨提示", message: "是否确定退出？", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
+            alrtView.tag = 101;
             alrtView.show()
         }
         if indexPath.row == 4 {
@@ -1066,14 +1066,22 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     
     public func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int)
     {
-        if buttonIndex == 1 {
-            let bools = UDManager.shared.removeUserToken()
-            print(bools)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-            let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
-            appDelegate.window?.rootViewController = BaseNavC(rootViewController: loginVC)
+        if alertView.tag == 101 {
+            if buttonIndex == 1 {
+                let bools = UDManager.shared.removeUserToken()
+                print(bools)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
+                appDelegate.window?.rootViewController = BaseNavC(rootViewController: loginVC)
+            }
+        } else if alertView.tag == 102 {
+            if buttonIndex == 1 {
+                self.connectDevice();
+            }
+            
         }
+        
     }
     
     @IBAction func xx(_ sender: Any) {
@@ -1083,7 +1091,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     
     // MARK: - Navigation
@@ -1112,32 +1119,36 @@ fileprivate extension HomeVC {
         }*/
         if self.currPeripheral == nil {
             Utility.delay(3, closure: {
-                self.setOnDiscoverSerchDevice()
                 // 这里应加一个提示搜索的按钮
                 if searchNumber == 3 {
                     // 提示没有搜索到设备
-                    MBProgressHUD.showHint("亲爱的搜索不到设备,请你检查设备")
+                    if btn_Click == 0 {
+                        btn_Click = 1;
+                        MBProgressHUD.showHint("亲爱的搜索不到设备,请你检查设备")
+                    }
                     self.search_device_btn.isHidden = false;
                     self.search_device_btn.isUserInteractionEnabled = true;
                     self.search_device_btn.setTitle("搜索不到设备,点击我再次搜索", for: .normal);
                 } else {
                     searchNumber = searchNumber + 1;
                 }
+                self.setOnDiscoverSerchDevice()
             })
         } else {
             // 表示已经有设备了，则隐藏搜索的button
             self.search_device_btn.isHidden = true;
+            return;
         }
         //用户主动搜索让列表框弹出来
         if self.hasSerch == true {
             if hasPopView == false {
-                self.searchView.show()
+                if self.peripleralArray.count > 0 {
+                    self.searchView.show()
+                }
                 self.hasPopView = true
             }
             self.searchView.setData(dataArray: self.peripleralArray)
-            return
         }
-        
         if self.peripleralArray.count == 0 {
             return
         }
@@ -1165,7 +1176,9 @@ fileprivate extension HomeVC {
         }
         //没找到默认连接的设备就弹窗
         if hasPopView == false {
-            self.searchView.show()
+            if self.peripleralArray.count > 0 {
+                self.searchView.show()
+            }
         }
         self.searchView.setData(dataArray: self.peripleralArray)
     }
@@ -1178,7 +1191,7 @@ fileprivate extension HomeVC {
             }
         }else{
             baby.cancelAllPeripheralsConnection()
-            baby.having(self.currPeripheral).and().channel(channelOnPeropheralView).then().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+        baby.having(self.currPeripheral).and().channel(channelOnPeropheralView).then().connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
             self.baby.cancelScan()
         }
     }
@@ -1267,10 +1280,7 @@ fileprivate extension HomeVC {
         
         //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
         baby.setBlockOnConnectedAtChannel(channelOnPeropheralView) { (central:CBCentralManager?, peripheral:CBPeripheral?) in
-            
             if peripheral != nil {
-                
-                
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2, execute: {
                     self.stopAnimation()
                 })
@@ -1295,6 +1305,16 @@ fileprivate extension HomeVC {
             if peripheral != nil {
                 self.isConnect = false
                 LogManager.shared.log("设备连接断开 :\(peripheral!.name!)")
+                let alrtView = UIAlertView(title: "温馨提示", message: "亲爱的,设备已经断开连接请您重新连接", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
+                alrtView.tag = 102;
+                alrtView.show()
+                // 设置提示
+                self.search_device_btn.setTitle("设备已断开,点击我进行搜索", for: .normal);
+                self.search_device_btn.isHidden = false;
+                self.search_device_btn.isUserInteractionEnabled = true;
+                self.startLabel.text = "未连接";
+                self.startAnimation();
+                self.device_name.text = "";
             }
         }
         
@@ -1308,8 +1328,6 @@ fileprivate extension HomeVC {
                         let info = PeripheralInfo()
                         info.serviceUUID = mService.uuid
                         self.services.append(info)
-                        
-                        
                         //  self.setData2(service: mService)
                     }
                 }
