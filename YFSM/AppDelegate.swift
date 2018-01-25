@@ -35,7 +35,7 @@ import UIKit
             let guideViewController = storyboard.instantiateViewController(withIdentifier: "GuideViewController") as! GuideViewController
             self.window?.rootViewController = guideViewController
         } else {
-            if !AccountManager.shared.isLogin() {
+            if AccountManager.shared.isLogin() {
                 let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
                 self.window?.rootViewController = BaseNavC(rootViewController: homeVC)
             }else {
