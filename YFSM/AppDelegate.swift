@@ -75,9 +75,7 @@ import UIKit
                 
                 
                 print("当前版本号",version_new);
-                
                 if version_new > version_current {
-                    
 //                    let alter = UIAlertView.init(title: "版本更新", message: "有新的版本啦！", delegate: weakSelf, cancelButtonTitle: "更新", otherButtonTitles: "忽略");
 //                    
 //                    alter.show();

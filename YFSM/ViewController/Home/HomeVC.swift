@@ -1179,6 +1179,7 @@ fileprivate extension HomeVC {
             if self.peripleralArray.count > 0 {
                 self.searchView.show()
             }
+            self.hasPopView = true
         }
         self.searchView.setData(dataArray: self.peripleralArray)
     }
