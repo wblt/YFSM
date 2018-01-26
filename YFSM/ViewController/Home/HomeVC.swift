@@ -1164,15 +1164,16 @@ fileprivate extension HomeVC {
             self.hasPopView = false
             UserDefaults.standard.set(currPeripheral.identifier.uuidString, forKey: kDefaultDeviceUUid)
             return
-        } else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) != nil) {
-            let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String
-            let peripheral = self.peripleralArray[0]
-            if uuidString == peripheral.identifier.uuidString  {
-                self.currPeripheral = peripheral
-                self.connectDevice()
-                return
-            }
         }
+//        else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) != nil) {
+//            let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String
+//            let peripheral = self.peripleralArray[0]
+//            if uuidString == peripheral.identifier.uuidString  {
+//                self.currPeripheral = peripheral
+//                self.connectDevice()
+//                return
+//            }
+//        }
 //        //查找默认链接的设备
 //        for peripheral in self.peripleralArray {
 //            if let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String  {

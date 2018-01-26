@@ -1358,7 +1358,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiwatch.qingfuyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cbbed865-5004-4625-b742-828cb4374fcd";
+				PROVISIONING_PROFILE = "20789df5-f999-49e7-8783-174f32f3ff2f";
 				PROVISIONING_PROFILE_SPECIFIER = qingfuyuan_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "YFSM/YFSMM-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1379,7 +1379,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiwatch.qingfuyuan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46ce0186-be2d-4244-bff3-74bd714e00b2";
+				PROVISIONING_PROFILE = "6c1da424-eaba-44ec-9e2b-5b081061d04a";
 				PROVISIONING_PROFILE_SPECIFIER = qingfuyuan_dis;
 				SWIFT_OBJC_BRIDGING_HEADER = "YFSM/YFSMM-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
