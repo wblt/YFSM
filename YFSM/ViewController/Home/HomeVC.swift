@@ -1139,16 +1139,18 @@ fileprivate extension HomeVC {
             self.search_device_btn.isHidden = true;
             return;
         }
+        
         //用户主动搜索让列表框弹出来
         if self.hasSerch == true {
-            if hasPopView == false {
-                if self.peripleralArray.count > 0 {
-                    self.searchView.show()
-                }
-                self.hasPopView = true
-            }
-            self.searchView.setData(dataArray: self.peripleralArray)
+//            if hasPopView == false {
+//                if self.peripleralArray.count > 0 {
+//                    self.searchView.show()
+//                }
+//                self.hasPopView = true
+//            }
+            //self.searchView.setData(dataArray: self.peripleralArray)
         }
+        
         if self.peripleralArray.count == 0 {
             return
         }
@@ -1162,24 +1164,32 @@ fileprivate extension HomeVC {
             self.hasPopView = false
             UserDefaults.standard.set(currPeripheral.identifier.uuidString, forKey: kDefaultDeviceUUid)
             return
-        }
-        //查找默认链接的设备
-        for peripheral in self.peripleralArray {
-            if let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String  {
-                if uuidString == peripheral.identifier.uuidString  {
-                    self.currPeripheral = peripheral
-                    //self.startAnimation()
-                    self.connectDevice()
-                    return
-                }
+        } else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) != nil) {
+            let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String
+            let peripheral = self.peripleralArray[0]
+            if uuidString == peripheral.identifier.uuidString  {
+                self.currPeripheral = peripheral
+                self.connectDevice()
+                return
             }
         }
-        //没找到默认连接的设备就弹窗
+//        //查找默认链接的设备
+//        for peripheral in self.peripleralArray {
+//            if let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String  {
+//                if uuidString == peripheral.identifier.uuidString  {
+//                    self.currPeripheral = peripheral
+//                    //self.startAnimation()
+//                    self.connectDevice()
+//                    return
+//                }
+//            }
+//        }
+        // 查找设备是否大于2，如果大于2 就弹
         if hasPopView == false {
-            if self.peripleralArray.count > 0 {
+            if self.peripleralArray.count > 1 {
                 self.searchView.show()
+                self.hasPopView = true
             }
-            self.hasPopView = true
         }
         self.searchView.setData(dataArray: self.peripleralArray)
     }
