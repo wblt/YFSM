@@ -34,8 +34,8 @@ class ChartVC: BaseVC {
         var jin1Array:[String] = []
         var jin2Array:[String] = []
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x:0, y:0, width:kScreenFrameW, height:kScreenFrameH)
-        scrollView.contentSize = CGSize(width: kScreenFrameW, height: kScreenFrameH*2 - 150);
+        scrollView.frame = CGRect(x:0, y:64, width:kScreenFrameW, height:kScreenFrameH)
+        scrollView.contentSize = CGSize(width: kScreenFrameW, height: kScreenFrameH*2 - 86);
         self.view.addSubview(scrollView)
         if flag == "1" {
             let modelArry = ChartModel.search(withWhere: ["step":2], orderBy: nil, offset: 0, count: 65535) as! [ChartModel]
@@ -51,7 +51,8 @@ class ChartVC: BaseVC {
             }
         } else {
             for model in beanArrassy {
-                let dateStr = "\(model.time!)".substringToIndex(10)!
+                let dateStr = "\(model.time!)".substringWithRange(5, endIndex: 10)
+                
                 //let stingIndex = dateStr.index(dateStr.startIndex, offsetBy: 2)
                 //dateStr.insert("-", at: stingIndex)
                 xTitles.append(dateStr)

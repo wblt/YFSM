@@ -818,7 +818,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         } else {
             print("点击未选择-------")
             switchOn = false;
-            
             audioPlayer?.play()
             playButton.setTitle("关闭音乐", for: UIControlState.normal)
         }
@@ -855,7 +854,6 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
         let userDefault = UserDefaults.standard
         let swithdd:Bool = userDefault.bool(forKey: "switchOn")
         switchOn = swithdd;
-        
         switch status {
         case 1:
             print("!!!!!!!!!--1----")
@@ -1155,16 +1153,16 @@ fileprivate extension HomeVC {
             return
         }
         //缓存里面没有设备就弹窗让用户选择
-        if self.peripleralArray.count > 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) == nil) {
-            self.searchView.setData(dataArray: self.peripleralArray)
-        }else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) == nil) {
-            let peripheral = self.peripleralArray[0]
-            self.currPeripheral = peripheral
-            self.connectDevice()
-            self.hasPopView = false
-            UserDefaults.standard.set(currPeripheral.identifier.uuidString, forKey: kDefaultDeviceUUid)
-            return
-        }
+//        if self.peripleralArray.count > 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) == nil) {
+//            self.searchView.setData(dataArray: self.peripleralArray)
+//        }else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) == nil) {
+//            let peripheral = self.peripleralArray[0]
+//            self.currPeripheral = peripheral
+//            self.connectDevice()
+//            self.hasPopView = false
+//            UserDefaults.standard.set(currPeripheral.identifier.uuidString, forKey: kDefaultDeviceUUid)
+//            return
+//        }
 //        else if self.peripleralArray.count == 1 && (UserDefaults.standard.object(forKey: kDefaultDeviceUUid) != nil) {
 //            let uuidString = UserDefaults.standard.object(forKey: kDefaultDeviceUUid) as? String
 //            let peripheral = self.peripleralArray[0]
@@ -1185,6 +1183,13 @@ fileprivate extension HomeVC {
 //                }
 //            }
 //        }
+        // 采用新的逻辑
+        if self.peripleralArray.count == 1 {
+            let peripheral = self.peripleralArray[0]
+            self.currPeripheral = peripheral
+            self.connectDevice()
+            return
+        }
         // 查找设备是否大于2，如果大于2 就弹
         if hasPopView == false {
             if self.peripleralArray.count > 1 {
@@ -1221,7 +1226,7 @@ fileprivate extension HomeVC {
                 LogManager.shared.log("设备打开成功，开始扫描设备")
                 self.setOnDiscoverSerchDevice()
             }else{
-                
+                LogManager.shared.log("手机蓝牙未打开")
             }
         }
         //过滤器
@@ -1306,6 +1311,7 @@ fileprivate extension HomeVC {
             if peripheral != nil {
                 self.isConnect = false
                 LogManager.shared.log("设备连接失败 :\(peripheral!.name!)")
+                MBProgressHUD.showHint("设备连接失败 :\(peripheral!.name!)")
             }
         }
         
@@ -1327,6 +1333,14 @@ fileprivate extension HomeVC {
                 self.startLabel.text = "未连接";
                 self.startAnimation();
                 self.device_name.text = "";
+                
+                // 断开连接应该停止音乐
+                // 停止音乐
+                self.musicStatus = 0
+                if (self.audioPlayer?.isPlaying)! {
+                    self.audioPlayer?.stop();
+                }
+                
             }
         }
         

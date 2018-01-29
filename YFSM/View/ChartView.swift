@@ -100,7 +100,8 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         lineChartView.leftAxis.axisLineColor = UIColor.init(white: 1, alpha: 0.7)
         lineChartView.leftAxis.gridColor = UIColor.init(white: 1, alpha: 0.7)
         lineChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom //设置x轴数据在底部
-        lineChartView.xAxis.labelFont = UIFont.systemFont(ofSize: CGFloat(9.0))//设置x文字字体大小
+        lineChartView.xAxis.labelFont = UIFont.systemFont(ofSize: CGFloat(11))//设置x文字字体大小
+    
         lineChartView.xAxis.labelTextColor = UIColor.init(white: 1, alpha: 0.9)
         lineChartView.xAxis.granularityEnabled = true //设置重复的值不显示
         lineChartView.xAxis.axisLineColor = UIColor.init(white: 1, alpha: 0.7)
