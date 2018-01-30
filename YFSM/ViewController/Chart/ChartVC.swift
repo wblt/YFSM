@@ -16,12 +16,20 @@ class ChartVC: BaseVC {
    // var lineChart:PNLineChart!
     var xTitles:[String] = []
     var beanArrassy:[FaceDataModel] = [FaceDataModel]()
+    var chartView:ChartView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "水油数据表"
         self.automaticallyAdjustsScrollViewInsets = false;
         getdata();
+        
+        let rightBtn = UIBarButtonItem(image: UIImage(named: "admin"), style: .plain, target: self, action: #selector(self.btnClickss(_:)))
+        self.navigationItem.rightBarButtonItem = rightBtn
+    }
+    
+    @objc func btnClickss(_ sender:AnyObject) {
+        chartView.refresh();
     }
 
     func initEView(flag:String) {
@@ -52,9 +60,6 @@ class ChartVC: BaseVC {
         } else {
             for model in beanArrassy {
                 let dateStr = "\(model.time!)".substringWithRange(5, endIndex: 10)
-                
-                //let stingIndex = dateStr.index(dateStr.startIndex, offsetBy: 2)
-                //dateStr.insert("-", at: stingIndex)
                 xTitles.append(dateStr)
                 if model.beforeuseoil != nil {
                     oil1Array.append("\(model.beforeuseoil!)")
@@ -74,17 +79,15 @@ class ChartVC: BaseVC {
                 if model.elastic != nil {
                     tan2Array.append("\(model.elastic!)")
                 }
-                
                 if model.beforeusecompactness != nil {
                     jin1Array.append("\(model.beforeusecompactness!)")
                 }
-                
                 if model.compactness != nil {
                     jin2Array.append("\(model.compactness!)")
                 }
             }
         }
-        let chartView = ChartView()
+        chartView = ChartView()
         chartView.backgroundColor = UIColor.clear
         chartView.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(kScreenFrameW), height: CGFloat(kScreenFrameH / 2) - 50)
         chartView.setData(data1Array: water1Array, data2Array: water2Array, titlesArray: xTitles, title: "皮肤水份/%")

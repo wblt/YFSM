@@ -106,6 +106,7 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         lineChartView.xAxis.granularityEnabled = true //设置重复的值不显示
         lineChartView.xAxis.axisLineColor = UIColor.init(white: 1, alpha: 0.7)
         let colorArray = [UIColorHex("#7E72F0"), UIColorHex("#78D7F5")]
+        
         //let array: [String] = ["10", "10", "8", "20", "40"]
         //let array1: [String] = ["50", "10", "30", "80", "47"]
         let valueArray:NSMutableArray = []
@@ -145,9 +146,12 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
         lineChartView.xAxis.valueFormatter = self
         bgView.addSubview(lineChartView)
     }
+    
+    
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
         return String(format: "%.f", value)
     }
+    
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         let index  = Int(value)
         if index >= self.xTitles.count {
@@ -156,5 +160,46 @@ class ChartView: UIView,ChartViewDelegate,IAxisValueFormatter,IValueFormatter {
             return self.xTitles[index]
         }
 
+    }
+    
+    // 数据刷新
+    func refresh(){
+        let colorArray = [UIColorHex("#7E72F0"), UIColorHex("#78D7F5")]
+        //let array: [String] = ["10", "10", "8", "20", "40"]
+        //let array1: [String] = ["50", "10", "30", "80", "47"]
+        let valueArray:NSMutableArray = []
+        valueArray.add(self.data1Array)
+        let dataSets:NSMutableArray = []
+        for i in 0..<valueArray.count {
+            let values : [String] = (valueArray[i] as! [String])
+            let yVals :NSMutableArray = []
+            let legendName: String = "第\(i)个图例"
+            for i in 0..<values.count {
+                let valStr: String = "\(values[i])"
+                let val: Double = valStr.double!
+                let entry = ChartDataEntry(x: Double(i), y: val)
+                yVals.add(entry)
+            }
+            let dataSet = LineChartDataSet(values: yVals as? [ChartDataEntry], label: legendName)
+            dataSet.lineWidth = 2//折线宽度
+            dataSet.drawValuesEnabled = false//是否在拐点处显示数据
+            dataSet.setColor(UIColor.white)//折线颜色
+            dataSet.setCircleColor(colorArray[i]) //设置拐点颜色
+            //dataSet.drawSteppedEnabled = false //是否开启绘制阶梯样式的折线图
+            dataSet.drawCirclesEnabled = true  //是否绘制拐点
+            dataSet.circleRadius = 5.0//拐点半径
+            dataSet.axisDependency = YAxis.AxisDependency.left
+            dataSet.drawCircleHoleEnabled = false//是否绘制中间的空心
+            dataSet.highlightEnabled = false//选中拐点,是否开启高亮效果(显示十字线)
+            dataSets.add(dataSet)
+        }
+        let data = LineChartData(dataSets: dataSets as? [IChartDataSet])
+        lineChartView.data = nil
+        lineChartView.xAxis.axisMinimum = -0.8
+        lineChartView.xAxis.axisMaximum = 5.1
+        lineChartView.xAxis.spaceMin = 30;
+        lineChartView.data = data
+        lineChartView.animate(xAxisDuration: 0.3)
+        lineChartView.xAxis.valueFormatter = self
     }
 }
