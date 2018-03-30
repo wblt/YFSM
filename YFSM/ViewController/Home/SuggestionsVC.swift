@@ -37,7 +37,8 @@ class SuggestionsVC: BaseVC {
             SVProgressHUD.showError(withStatus: "请输入您的联系电话")
             return
         }
-        let urlString = "http://hi-watch.com.cn/tpiot/app/usropinon"
+
+        let urlString = api_service+"/usropinon"
         var parameters = [String: Any]()
         parameters["text"] = textView.text;
         parameters["contact"] = phoneText.text;
@@ -46,7 +47,6 @@ class SuggestionsVC: BaseVC {
         Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
             if response.error != nil  {
-                
                 SVProgressHUD.showError(withStatus: "反馈失败")
                 return
             }
