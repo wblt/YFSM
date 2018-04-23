@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 @UIApplicationMain
 @objc class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate {
@@ -23,6 +23,8 @@ import UIKit
         // 得到当前应用的版本号
         let infoDictionary = Bundle.main.infoDictionary
         let currentAppVersion = infoDictionary!["CFBundleShortVersionString"] as! String
+        
+//        test();
         
         // 取出之前保存的版本号
         let userDefaults = UserDefaults.standard
@@ -135,7 +137,19 @@ import UIKit
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+//    func test(){
+//        let urlString = "http://yg.welcare-tech.com.cn/tpiot/app/getTask"
+//        var parameters = [String: Any]()
+//        parameters["timestamp"] = "1522394295";
+//        parameters["token"] = "673";
+//        parameters["uid"] = "673";
+//        parameters["sign"] = "770A04737484F531C2AAEF3D35EC2E70";
+//        BFunction.shared.showLoading()
+//        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+//            BFunction.shared.hideLoadingMessage()
+//        }
+//
+//    }
 }
 

@@ -103,7 +103,6 @@ class RegisterVC: BaseVC {
                     self.remainingSeconds = 59
                     self.isCounting = !self.isCounting
                 }else {
-                    
                     SVProgressHUD.showError(withStatus: "获取验证码失败")
                 }
             }
