@@ -21,14 +21,10 @@ let cTestDomainUrl       = "http://192.168.1.20"
 // 服务器环境
 // let api_service = "http://120.26.104.21/tpiot/app";
 let api_service = "http://120.26.104.21/tpiot/app";
-
 let cApiVersionV1 = ""
-
 let cAPPStoreID  = 1066760920
 let cShareAPPURL = "http://www.ncvt.net/"
 let cAPPStoreURL = "https://itunes.apple.com/cn/app/yun-dou-si-shu-zi-xiao-yuan/id\(cAPPStoreID)?mt=8"
-
-
 //MARK: - iRate 评价
 let cIRateAppID: UInt = UInt(cAPPStoreID)
 let cIRateAppBundleID = Bundle.main.bundleIdentifier!

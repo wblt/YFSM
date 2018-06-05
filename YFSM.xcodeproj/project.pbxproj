@@ -125,6 +125,7 @@
 		362321A52012526200E60794 /* FaceDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 362321A42012526200E60794 /* FaceDataModel.m */; };
 		3623A13020178E6400FFA177 /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623A12E20178E6400FFA177 /* SettingVC.swift */; };
 		3623A13120178E6400FFA177 /* SettingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623A12F20178E6400FFA177 /* SettingVC.xib */; };
+		36D4AC9620C6B88B0079E0B2 /* ForgotPwdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4AC9520C6B88B0079E0B2 /* ForgotPwdVC.swift */; };
 		36FA6DB320185EAA00FABA2B /* MBProgressHUD+Hud.m in Sources */ = {isa = PBXBuildFile; fileRef = 36FA6DB220185EAA00FABA2B /* MBProgressHUD+Hud.m */; };
 		503325D3B01B5D95DCC6EE55 /* Pods_YFSM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9AE3DEF952D45E0B5B802BC /* Pods_YFSM.framework */; };
 		8D425BAD200C71CF0067D706 /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D425BAC200C71CF0067D706 /* NetworkTools.swift */; };
@@ -292,6 +293,7 @@
 		362321A42012526200E60794 /* FaceDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceDataModel.m; sourceTree = "<group>"; };
 		3623A12E20178E6400FFA177 /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		3623A12F20178E6400FFA177 /* SettingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingVC.xib; sourceTree = "<group>"; };
+		36D4AC9520C6B88B0079E0B2 /* ForgotPwdVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPwdVC.swift; sourceTree = "<group>"; };
 		36FA6DB120185EAA00FABA2B /* MBProgressHUD+Hud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Hud.h"; sourceTree = "<group>"; };
 		36FA6DB220185EAA00FABA2B /* MBProgressHUD+Hud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Hud.m"; sourceTree = "<group>"; };
 		45DB0ACA37AF3B3ADADF24B7 /* Pods-YFSM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YFSM.release.xcconfig"; path = "Pods/Target Support Files/Pods-YFSM/Pods-YFSM.release.xcconfig"; sourceTree = "<group>"; };
@@ -700,6 +702,7 @@
 				362320ED200AFB8200E60794 /* LoginNavC.swift */,
 				362320EE200AFB8200E60794 /* LoginVC.swift */,
 				EE016B15200B679B00235DF7 /* RegisterVC.swift */,
+				36D4AC9520C6B88B0079E0B2 /* ForgotPwdVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1171,6 +1174,7 @@
 				36232128200AFB9C00E60794 /* UITableView+AddOn.swift in Sources */,
 				3623204A200AFB0800E60794 /* ChartView.swift in Sources */,
 				362320CC200AFB4500E60794 /* RollView.swift in Sources */,
+				36D4AC9620C6B88B0079E0B2 /* ForgotPwdVC.swift in Sources */,
 				362320CB200AFB4500E60794 /* ImageBrowsingVC.swift in Sources */,
 				362320D9200AFB6900E60794 /* FAQModel.swift in Sources */,
 				36232125200AFB9C00E60794 /* UIDevice+AddOn.swift in Sources */,

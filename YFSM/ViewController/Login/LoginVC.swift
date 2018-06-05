@@ -35,6 +35,14 @@ class LoginVC: BaseVC {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+    @IBAction func forgetpwd(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let registerVC = storyboard.instantiateViewController(withIdentifier: "ForgotPwdVC") as! ForgotPwdVC
+        self.navigationController?.pushViewController(registerVC, animated: true)
+    }
+    
     @IBAction func toRegister(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let registerVC = storyboard.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC

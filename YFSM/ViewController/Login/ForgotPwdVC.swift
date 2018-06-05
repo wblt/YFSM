@@ -1,91 +1,32 @@
 //
-//  RegisterVC.swift
+//  ForgotPwdVC.swift
 //  YFSM
 //
-//  Created by 冷婷 on 2018/1/14.
+//  Created by wb on 2018/6/5.
 //  Copyright © 2018年 wb. All rights reserved.
 //
 
 import UIKit
 import SVProgressHUD
 import Alamofire
-class RegisterVC: BaseVC {
-
+class ForgotPwdVC: BaseVC {
+    
     @IBOutlet weak var _numberTextField: UITextField!
-    @IBOutlet weak var _passwordTextField: UITextField!
     @IBOutlet weak var _codeTextField: UITextField!
+    @IBOutlet weak var _passwordTextField: UITextField!
     @IBOutlet weak var _codeButton: UIButton!
-    @IBOutlet weak var _registerBtn: UIButton!
+    @IBOutlet weak var _commitButton: UIButton!
+    
     var code = ""
     private var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.title = "注册";
+        self.title = "找回密码";
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    @IBAction func registerAction(_ sender: UIButton) {
-        if _numberTextField.text?.length != 11 {
-            SVProgressHUD.showError(withStatus: "请输入手机号")
-            return
-        }
-        if (_passwordTextField.text?.length)! < 6 {
-            SVProgressHUD.showError(withStatus: "请设置密码(6-10位数字与字母的组合)")
-            return
-        }
-        if _codeTextField.text != self.code {
-            SVProgressHUD.showError(withStatus: "验证码错误")
-            return
-        }
-        let urlString = api_service+"/register"
-        
-        var parameters = [String: Any]()
-        parameters["username"] = _numberTextField.text
-        parameters["password"] = _passwordTextField.text?.mattress_MD5();
-        BFunction.shared.showLoading()
-        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
-            BFunction.shared.hideLoadingMessage()
-            if response.error != nil  {
-                
-                SVProgressHUD.showError(withStatus: "注册失败")
-                return
-            }
-            if let jsonResult = response.value as? Dictionary<String, Any> {
-                if jsonResult["result"] as! Int == 0 {
-                    let userDefaults = UserDefaults.standard
-                    userDefaults.setValue(self._numberTextField.text, forKey: "UserPhone")
-                    userDefaults.setValue(self._passwordTextField.text, forKey: "UserPassword")
-                    userDefaults.setValue(jsonResult["userid"], forKey: "userid")
-                    userDefaults.synchronize()
-                    AccountManager.shared.login(response.value as! [String : Any], firstLogin: false)
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
-                    let appDelegate = (UIApplication.shared.delegate) as! AppDelegate
-                    appDelegate.window?.rootViewController = BaseNavC(rootViewController: homeVC)
-                }else if jsonResult["result"] as! Int == -2 {
-                    SVProgressHUD.showError(withStatus: "已经注册 ，去登录")
-                }else {
-                    
-                    SVProgressHUD.showError(withStatus: "注册失败")
-                }
-            }
-            
-        }
-    }
-    
-    @IBAction func backAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func codeAction(_ sender: UIButton) {
+    @IBAction func codeAction(_ sender: Any) {
         let urlString = api_service+"/vercode"
         var parameters = [String: Any]()
         parameters["username"] = _numberTextField.text
@@ -93,7 +34,6 @@ class RegisterVC: BaseVC {
         Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             BFunction.shared.hideLoadingMessage()
             if response.error != nil  {
-             
                 SVProgressHUD.showError(withStatus: "获取验证码失败")
                 return
             }
@@ -109,6 +49,50 @@ class RegisterVC: BaseVC {
             }
             
         }
+    }
+    
+
+    @IBAction func commitAction(_ sender: Any) {
+        if _numberTextField.text?.length != 11 {
+            SVProgressHUD.showError(withStatus: "请输入手机号")
+            return
+        }
+        if (_passwordTextField.text?.length)! < 6 {
+            SVProgressHUD.showError(withStatus: "请设置密码(6-10位数字与字母的组合)")
+            return
+        }
+        if _codeTextField.text != self.code {
+            SVProgressHUD.showError(withStatus: "验证码错误")
+            return
+        }
+        let urlString = api_service+"/restpwd"
+        var parameters = [String: Any]()
+        parameters["username"] = _numberTextField.text
+        parameters["password"] = _passwordTextField.text?.mattress_MD5();
+        BFunction.shared.showLoading()
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+            BFunction.shared.hideLoadingMessage()
+            if response.error != nil  {
+                SVProgressHUD.showError(withStatus: "提交失败")
+                return
+            }
+            if let jsonResult = response.value as? Dictionary<String, Any> {
+                if jsonResult["result"] as! Int == 0 {
+                    SVProgressHUD.showError(withStatus: "重置密码成功")
+                    self.navigationController?.popViewController(animated: true)
+                }else if jsonResult["result"] as! Int == -2 {
+                    SVProgressHUD.showError(withStatus: "提交失败")
+                }else {
+                    SVProgressHUD.showError(withStatus: "注册失败")
+                }
+            }
+            
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     private var isCounting: Bool = false {//是否开始计时
@@ -142,6 +126,7 @@ class RegisterVC: BaseVC {
         }
     }//当前倒计时剩余的秒数
     
+
     /*
     // MARK: - Navigation
 
