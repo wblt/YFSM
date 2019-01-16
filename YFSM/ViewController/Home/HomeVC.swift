@@ -961,20 +961,18 @@ class HomeVC: BaseVC,JHCustomMenuDelegate,SearchDeviceViewDelegate,AVAudioPlayer
     
     //MARK:设置水和油的进度
     func setShuiAndYouProgress() {
-        
-        
-        
         let image = UIImage(named: "progress_progress")
-        
-        let shuifenClipY = CGFloat(((100 - CGFloat(self.shuifenValue)) / 100) * 300)
+        let cc  = (100 - self.shuifenValue)/100;
+//        let shuifenClipY = CGFloat(((100 - CGFloat(self.shuifenValue)) / 100) * 300)
+        let shuifenClipY = CGFloat(cc * 300)
         let shuifenClipH = CGFloat((CGFloat(self.shuifenValue) / 100) * 300)
         let newImage = Utility.clipImage(with: image!, in: CGRect(x: 0, y: shuifenClipY , width: 30, height: shuifenClipH))
         shuifenIMGV.image = newImage
         shuifenIMGV.frame = CGRect(x: self.shuifenBGV.frame.origin.x + 1, y: self.shuifenBGV.frame.maxY - (shuifenClipH / 2), width: 15, height: shuifenClipH / 2)
-        
         let image2 = UIImage(named: "progress_you")
-        
-        let youfenClipY = CGFloat(((100 - CGFloat(self.youfenValue)) / 100) * 300)
+        let ff  = (100 - self.youfenValue)/100;
+//        let youfenClipY = CGFloat(((100 - CGFloat(self.youfenValue)) / 100) * 300)
+        let youfenClipY = CGFloat(ff*300);
         let youfenClipH = CGFloat((CGFloat(self.youfenValue) / 100) * 300)
         let newImage2 = Utility.clipImage(with: image2!, in: CGRect(x: 0, y: youfenClipY , width: 30, height: youfenClipH))
         youfenIMGV.image = newImage2
@@ -1349,7 +1347,6 @@ fileprivate extension HomeVC {
             if let service_ = peripheral?.services {
                 if self.services.count == 0 &&  self.services.count < 2 {
                     for mService in service_ {
-                        
                         print("搜索到服务: \(mService.uuid.uuidString)")
                         let info = PeripheralInfo()
                         info.serviceUUID = mService.uuid
